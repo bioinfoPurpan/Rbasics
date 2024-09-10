@@ -182,3 +182,172 @@ sqrt.valid.name_123
 help(sqrt)
 ?sqrt
 ```
+
+# Vectors
+
+## Vectors {auto-animate=true}
+
+::: { .callout appearance="simple" }
+### vector construction
+- `c()` Concatenate function
+- `1:10` Vector with numbers from 1 to 10
+:::
+
+::: {.fragment .fade-out}
+```{r}
+#| echo: true
+luckyNumbers = c(4,8,15,16,23,42)
+luckyNumbers
+
+oneToTen = 1:10
+oneToTen
+
+tenOnes = rep(1,10)
+tenOnes
+
+samples = c("sampA", "sampB")
+samples
+```
+:::
+
+::: { .callout-tip}
+### Extra
+- `seq` Create a sequence of numbers
+- `rep` Repeat elements several times
+- `runif` Simulate random numbers from Uniform distribution. Same for `rnorm`, `rpois`...
+:::
+
+## Exercise - Create some vectors
+
+::: { .callout appearance="simple" }
+### Instructions
+- Create a `vector` withe 7 *numeric* values
+- Create a `vector` with 7 *character* values
+:::
+
+## Vectors
+
+::: { .callout appearance="simple" }
+### Manipulation
+
+Using index/position between []
+:::
+
+::: { .callout appearance="simple" }
+### Characterization
+
+- `length()` Number of elements in the vector
+- `names()` Get or set the names of the vector's value
+:::
+```{r}
+#| echo: true
+luckyNumbers[3]
+luckyNumbers[2:4]
+luckyNumbers[2:4] = c(14,3,9)
+luckyNumbers
+
+length(luckyNumbers)
+
+names(luckyNumbers)
+names(luckyNumbers) = c("frank", "henry", "philip", "steve", "tom", "francis")
+names(luckyNumbers)
+luckyNumbers["philip"]
+```
+
+## Vectors
+
+::: { .callout appearance="simple" }
+### Manipulation
+
+- `sort()` Sort a vector
+- `sample()` Shuffle a vector
+- `rev()` Reverse a vector
+:::
+
+```{r}
+#| echo: true
+luckyNumbers
+sort(luckyNumbers)
+sort(c(luckyNumbers, 1:10))
+rev(luckyNumbers)
+sample(1:10)
+```
+
+::: { .callout-tip }
+### Extra
+
+- `sort()/sample()` Explore extra parameters
+- `order()`  Get the index of the sorted elements
+:::
+
+## Vectors
+
+::: { .callout appearance="simple" }
+### Exploration
+
+- `head()/tail()` Print the first/last values
+- `summary()` Summary statistics
+- `min()/max()/mean()/median()/var()` Minimum, maximum, average, median, variance
+- `sum` Sum of the vector's values
+:::
+
+```{r}
+#| echo: true
+head(samples)
+summary(luckyNumbers)
+mean(luckyNumbers)
+min(luckyNumbers)
+```
+
+::: { .callout-tip }
+### Extra
+
+- `log/log2/log10` Logarithm functions
+- `sqrt`  Square-root function
+:::
+
+## Vectors
+
+::: { .callout appearance="simple" }
+### Arithmetic operators
+
+- Simple arithmetic operations over all the values of the vector
+- Or values by values when using vectors of same length
+- Arithmetic operations: +, -, *, /
+- Other exist but let's forget about them for now 
+:::
+
+```{r}
+#| echo: true
+luckyNumbers + 2
+luckyNumbers * 4
+luckyNumbers - luckyNumbers
+luckyNumbers / 1:length(luckyNumbers)
+```
+
+## Exercise - Guess my favorite number
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Create a vector with 5 numeric values
+2. Multiply it by 6
+3. Add 21
+4. Divide it by 3
+5. Substract 1
+6. Halve it
+7. Substract its original values
+:::
+
+::: {.fragment}
+```{r}
+#| echo: true
+my_numbers = rnorm(5)
+my_favorite_number = my_numbers*6
+my_favorite_number = my_favorite_number + 21
+my_favorite_number = my_favorite_number / 3
+my_favorite_number = my_favorite_number - 1
+my_favorite_number = my_favorite_number / 2
+my_favorite_number - my_numbers
+```
+:::
