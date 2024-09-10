@@ -1,9 +1,6 @@
 ---
 title: "R Basics"
 author : "Rüçhan Eker, Jean Monlong, Margot Zahm"
-format: 
-    revealjs:
-        theme: white
 slide-level: 2
 ---
 
@@ -405,10 +402,14 @@ Try to raise errors using operators.
 ::: { .fragment }
 ```{r}
 #| echo: true
-#"Six" * "Three"
+# "Six" * "Three"
+# 10 %% 0
 5/0
 0/0
-
+(-2) ^ (1/2)
+1e+308 * 10
+1e-308 / 10
+(2 + 3i) * (4 - 5i)
 ```
 :::
 
