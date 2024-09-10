@@ -1,5 +1,13 @@
 name: Build Quarto Documents
 
+on:
+  push:
+    branches:
+      - main  # ou la branche que tu utilises
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
