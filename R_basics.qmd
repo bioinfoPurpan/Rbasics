@@ -53,7 +53,7 @@ slide-level: 2
 
 ![](images/Rscreenshot.JPG){width=60%}
 
-## Workshop Setup
+## Workshop Setup {auto-animate=true}
 
 <div style="display: flex; align-items: center;">
   <ul style="margin: 0; padding: 0;">
@@ -64,13 +64,40 @@ slide-level: 2
 
 ![](images/Rstudio_screenshot.JPG){width=50%}
 
-## Console? Script?
+## Workshop Setup {auto-animate=true}
 
+Open a new R script file (File > New File > R Script)
+
+![](images/Rstudio_script_screenshot.JPG){width=50%}
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: {.fragment}
 ::: { .callout appearance="simple" }
 ### Console
 
 - Where R is running
-- You could write and run the commands directly here
+- You can write and run the commands directly here
+- Your command executes when you press Enter
+:::
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
 :::
 
 ::: { .callout appearance="simple" }
@@ -78,8 +105,88 @@ slide-level: 2
 
 - A text file with commands. *Extension .R*
 - To keep a trace of your analysis
-- Recommended
-- Easy to send commands from a script to the console
+- Highly recommended
+- Run commands from a script to the console with Run button
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
+:::
+
+::: { .callout appearance="simple" }
+### Script
+:::
+
+::: { .callout appearance="simple" }
+### Tracking panel
+- List all **variables** you generated
+- An **history** of the commands you ran
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
+:::
+
+::: { .callout appearance="simple" }
+### Script
+:::
+
+::: { .callout appearance="simple" }
+### Tracking panel
+:::
+
+::: { .callout appearance="simple" }
+### Multipurpose panel
+Check **files** in your computer, see **plots**, manage **packages**, read **help** section of a function.
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
+:::
+
+::: { .callout appearance="simple" }
+### Script
+:::
+
+::: { .callout appearance="simple" }
+### Tracking panel
+:::
+
+::: { .callout appearance="simple" }
+### Multipurpose panel
+:::
+:::
+:::
+
+::: {.callout-caution}
+Write everything you do in scripts to avoid loosing your work.
 :::
 
 ## When you get an error
