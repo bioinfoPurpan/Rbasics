@@ -1,6 +1,6 @@
 ---
 title: "R Basics"
-author : "Rüçhan Eker, Jean Monlong, Margot Zahm"
+author : "Rüçhan Ekren, Jean Monlong, Margot Zahm"
 slide-level: 2
 ---
 
