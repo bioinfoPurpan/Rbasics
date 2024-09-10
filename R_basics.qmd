@@ -1,0 +1,184 @@
+---
+title: "R Basics"
+author : "Rüçhan Eker, Jean Monlong, Margot Zahm"
+format: 
+    revealjs:
+        theme: white
+slide-level: 2
+---
+
+# Why R?
+
+## Why R?
+
+::: { .callout appearance="simple" }
+### Simple
+
+- Interpretative language (no compilation needed)
+- No manual memory management
+- Vectorized
+:::
+
+::: { .callout appearance="simple" }
+### Free
+
+- Widely used, vast community of R users
+- Good life expectancy
+:::
+
+## Why R?
+
+::: { .callout appearance="simple" }
+### Flexible
+
+- Open-source: anyone can see/create/modify
+- Multiplatform: Windows, Mac, Unix... It works everywhere
+:::
+
+::: { .callout appearance="simple" }
+### Trendy
+
+- More and more packages
+- More and more popular among data scientists and (now) biologists
+:::
+
+## Workshop Setup
+
+<div style="display: flex; align-items: center;">
+  <ul style="margin: 0; padding: 0;">
+    <li style="list-style: none;">Open </li>
+  </ul>
+  <img src="images/Rlogo.svg" alt="Logo" style="height: 0.5in; margin-left: 15px;"/>
+</div>
+
+![](images/Rscreenshot.JPG){width=60%}
+
+## Workshop Setup
+
+<div style="display: flex; align-items: center;">
+  <ul style="margin: 0; padding: 0;">
+    <li style="list-style: none;">Open </li>
+  </ul>
+  <img src="images/RStudio_Logo.png" alt="Logo" style="height: 0.5in; margin-left: 15px;"/>
+</div>
+
+![](images/Rstudio_screenshot.JPG){width=50%}
+
+## Console? Script?
+
+::: { .callout appearance="simple" }
+### Console
+
+- Where R is running
+- You could write and run the commands directly here
+:::
+
+::: { .callout appearance="simple" }
+### Script
+
+- A text file with commands. *Extension .R*
+- To keep a trace of your analysis
+- Recommended
+- Easy to send commands from a script to the console
+:::
+
+## When you get an error
+
+::: { .callout appearance="simple" }
+1. Read the command, look for typos
+2. Read the error message
+3. 1. and 2. again
+4. Raise your hand, someone will assist you
+:::
+
+::: {.callout-tip}
+Solving errors is an important skill to learn.
+:::
+
+# Data Structure
+
+## Data structure - Overview
+
+::: { .callout appearance="simple" }
+### Unit type
+
+- **numeric** e.g. numbers
+
+```{.r}
+0.1
+42
+-66.6
+```
+
+- **character** e.g. words
+```{.r}
+"male"
+'ENSG007'
+"Allez les bleus"
+```
+
+- **logical Binary** two possible values
+```{.r}
+TRUE
+FALSE
+```
+:::
+
+## Data structure - Overview
+
+::: { .callout appearance="simple" }
+### Structure
+
+- **vector** Ordered collection of elements of the same type
+
+- **matrix** Matrix of element of the same type
+
+- **list** Flexible container, mixed type possible. Recursive
+:::
+
+## Assign a value to an object
+
+::: { .callout appearance="simple" }
+### Choose an object name
+- Starts with letter or the dot not followed by a number
+- Letters, numbers, dot or underline characters
+- Correct: valid.name, valid_name, valid2name3
+- Incorrect: valid name, valid-name, 1valid2name3
+:::
+
+## Assign a value to an object
+
+::: { .callout appearance="simple" }
+### Assign a value
+The name of the object followed by the assignment symbol and the value.
+:::
+
+```{r}
+#| echo: true
+valid.name_123 = 2
+valid.name_123
+
+valid.name_123 <- 2
+valid.name_123
+
+valid.name_123 = 4
+valid.name_123
+```
+
+## Use a function
+
+::: { .callout appearance="simple" }
+- **Parenthesis** are for **functions only**.
+- The rest will be for data manipulation
+- Read the help manual to know more about a function (`help`, `?` or `F1`)
+:::
+```{r}
+#| echo: true
+sqrt(9)
+sqrt.valid.name_123 = sqrt(valid.name_123)
+sqrt.valid.name_123
+```
+```{.r}
+help(sqrt)
+?sqrt
+```
