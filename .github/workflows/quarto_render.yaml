@@ -1,0 +1,60 @@
+name: Build Quarto Documents
+
+on:
+  push:
+    branches:
+      - main  # ou la branche que tu utilises
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+
+    - name: Render Quarto document to HTML
+      run: quarto render R_basics.qmd --to html
+
+    - name: Upload HTML
+      uses: actions/upload-artifact@v3
+      with:
+        name: R_basics-html
+        path: "*.html"
+
+        on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.2.0'
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
