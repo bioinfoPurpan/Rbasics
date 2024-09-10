@@ -193,7 +193,6 @@ help(sqrt)
 - `1:10` Vector with numbers from 1 to 10
 :::
 
-::: {.fragment .fade-out}
 ```{r}
 #| echo: true
 luckyNumbers = c(4,8,15,16,23,42)
@@ -208,6 +207,13 @@ tenOnes
 samples = c("sampA", "sampB")
 samples
 ```
+
+## Vectors {auto-animate=true}
+
+::: { .callout appearance="simple" }
+### vector construction
+- `c()` Concatenate function
+- `1:10` Vector with numbers from 1 to 10
 :::
 
 ::: { .callout-tip}
