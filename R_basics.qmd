@@ -53,7 +53,7 @@ slide-level: 2
 
 ![](images/Rscreenshot.JPG){width=60%}
 
-## Workshop Setup
+## Workshop Setup {auto-animate=true}
 
 <div style="display: flex; align-items: center;">
   <ul style="margin: 0; padding: 0;">
@@ -64,13 +64,40 @@ slide-level: 2
 
 ![](images/Rstudio_screenshot.JPG){width=50%}
 
-## Console? Script?
+## Workshop Setup {auto-animate=true}
 
+Open a new R script file (File > New File > R Script)
+
+![](images/Rstudio_script_screenshot.JPG){width=50%}
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: {.fragment}
 ::: { .callout appearance="simple" }
 ### Console
 
 - Where R is running
-- You could write and run the commands directly here
+- You can write and run the commands directly here
+- Your command executes when you press Enter
+:::
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
 :::
 
 ::: { .callout appearance="simple" }
@@ -78,8 +105,88 @@ slide-level: 2
 
 - A text file with commands. *Extension .R*
 - To keep a trace of your analysis
-- Recommended
-- Easy to send commands from a script to the console
+- Highly recommended
+- Run commands from a script to the console with Run button
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
+:::
+
+::: { .callout appearance="simple" }
+### Script
+:::
+
+::: { .callout appearance="simple" }
+### Tracking panel
+- List all **variables** you generated
+- An **history** of the commands you ran
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
+:::
+
+::: { .callout appearance="simple" }
+### Script
+:::
+
+::: { .callout appearance="simple" }
+### Tracking panel
+:::
+
+::: { .callout appearance="simple" }
+### Multipurpose panel
+Check **files** in your computer, see **plots**, manage **packages**, read **help** section of a function.
+:::
+:::
+:::
+
+## Workshop Setup {auto-animate=true}
+
+::: {.columns}
+::: {.column}
+![](images/Rstudio_script_screenshot_annotations.png)
+:::
+::: {.column}
+::: { .callout appearance="simple" }
+### Console
+:::
+
+::: { .callout appearance="simple" }
+### Script
+:::
+
+::: { .callout appearance="simple" }
+### Tracking panel
+:::
+
+::: { .callout appearance="simple" }
+### Multipurpose panel
+:::
+:::
+:::
+
+::: {.callout-caution}
+Write everything you do in scripts to avoid loosing your work.
 :::
 
 ## When you get an error
@@ -91,68 +198,127 @@ slide-level: 2
 4. Raise your hand, someone will assist you
 :::
 
+::: {.fragment}
 ::: {.callout-tip}
 Solving errors is an important skill to learn.
 :::
+:::
 
-# Data Structure
+# Objects
 
-## Data structure - Overview
+## Objects - Overview
 
 ::: { .callout appearance="simple" }
 ### Unit type
 
+::: {.columns}
+::: {.column}
 - **numeric** e.g. numbers
 
-```{.r}
+```{r}
 0.1
 42
--66.6
+-10e6
 ```
 
-- **character** e.g. words
-```{.r}
+- **logical Binary** two possible values
+```{r}
+TRUE
+FALSE
+```
+:::
+::: {.column}
+- **character** e.g. words between `"`
+```{r}
 "male"
 'ENSG007'
 "Allez les bleus"
 ```
 
-- **logical Binary** two possible values
+- **comment**: line starting by **#**
 ```{.r}
-TRUE
-FALSE
+# This is a comment line
+# I can write everythin I want
+```
+:::
+:::
+:::
+
+::: {.fragment}
+::: {.callout-tip}
+Comment your script to help you remember what you have done.
+:::
+:::
+
+## Objects - Overview
+
+::: { .callout appearance="simple" }
+### Complex type
+
+- **vector**: Ordered collection of elements of the same type
+```{r}
+seq(1, 10, 2)
+```
+- **list**: Flexible container, mixed type possible. Recursive
+```{r}
+list(name = "John Doe",
+      age = "40",
+      skills = c("sing", "dance", "run"),
+      glasses = FALSE)
 ```
 :::
 
-## Data structure - Overview
+## Objects - Overview
 
 ::: { .callout appearance="simple" }
-### Structure
+### Complex type
 
-- **vector** Ordered collection of elements of the same type
-
-- **matrix** Matrix of element of the same type
-
-- **list** Flexible container, mixed type possible. Recursive
+- **matrix**: Table of elements of the same type
+```{r}
+matrix(c(1:6), 
+        nrow = 2, ncol = 3)
+matrix(c("one", "two", "three", 1:6), 
+        nrow = 3, ncol = 3)
+```
+- **data.frame**: Table of mixed type elements
+```{r}
+data.frame(
+  Name = c("John", "Jane"),
+  Age = c(25, 30),
+  IsStudent = c(TRUE, FALSE)
+)
+```
 :::
 
-## Assign a value to an object
+::: {.fragment}
+::: {.callout-note}
+These are the basic complex types. It exists a lot of different complex objects which mix all these basic objects.
+:::
+:::
+
+## Objects - Naming conventions
 
 ::: { .callout appearance="simple" }
-### Choose an object name
-- Starts with letter or the dot not followed by a number
-- Letters, numbers, dot or underline characters
+- Use letters, numbers, dot or underline characters
+- Start with letter or the dot not followed by a number
+- Some names are forbidden (ex. `if`, `else`, `TRUE`, `FALSE`)
 - Correct: valid.name, valid_name, valid2name3
 - Incorrect: valid name, valid-name, 1valid2name3
 :::
 
-## Assign a value to an object
+::: {.fragment}
+::: {.callout-tip}
+Avoid random names such as `var1`, `var2`. Use significant names: `gene_list`, `nb_elements`
+:::
+:::
+
+## Objects - Assign a value
 
 ::: { .callout appearance="simple" }
-### Assign a value
 The name of the object followed by the assignment symbol and the value.
 :::
 
+::: {.fragment}
 ```{r}
 #| echo: true
 valid.name_123 = 2
@@ -164,14 +330,96 @@ valid.name_123
 valid.name_123 = 4
 valid.name_123
 ```
+:::
 
-## Use a function
+## Objects - Arithmetic operators
 
 ::: { .callout appearance="simple" }
-- **Parenthesis** are for **functions only**.
-- The rest will be for data manipulation
+You can use operators on objects to modify them. Depending on the object format, operators have different behaviors and some are forbidden.
+
+::: {.columns}
+::: {.column}
+- addition: `+`
+- substraction: `-`
+- multiplication: `*`
+- division: `/`
+- exponent: `^` or `**`
+- integer division: `%/%`
+- modulo: `%%`
+:::
+::: {.column}
+```{r}
+#| echo: true
+2+3
+5-2
+4*3
+10/2
+2^3
+10%/%3
+10%%3
+```
+:::
+:::
+:::
+
+## Objects - Arithmetic operators
+
+::: { .callout appearance="simple" }
+### Exercise
+
+1. Create a numeric object
+2. Multiply it by 6
+3. Add 21
+4. Divide it by 3
+5. Substract 1
+6. Halve it
+7. Substract its original value
+:::
+
+## Objects - Arithmetic operators
+
+::: { .callout appearance="simple" }
+### Correction
+:::
+
+```{r}
+#| echo: true
+my_number = 42
+my_new_number = my_number * 6
+my_new_number = my_new_number + 21
+my_new_number = my_new_number / 3
+my_new_number = my_new_number - 1
+my_new_number = my_new_number / 2
+my_new_number = my_new_number - my_number
+my_new_number
+```
+
+## Objects - Arithmetic operators
+
+::: { .callout appearance="simple" }
+### Exercise
+
+Try to raise errors using operators.
+:::
+
+::: { .fragment }
+```{r}
+#| echo: true
+#"Six" * "Three"
+5/0
+0/0
+
+```
+:::
+
+## Objects - Function
+
+::: { .callout appearance="simple" }
+- A function is a tool to create or modify an object
+- Format: `function_name(object, parameter1 = ..., parameter2 = ...)`
 - Read the help manual to know more about a function (`help`, `?` or `F1`)
 :::
+::: { .fragment }
 ```{r}
 #| echo: true
 sqrt(9)
@@ -182,6 +430,13 @@ sqrt.valid.name_123
 help(sqrt)
 ?sqrt
 ```
+:::
+
+::: {.fragment}
+::: {.callout-note}
+Some functions are in the default installation of R. Other functions come from packages. You can also create your own functions.
+:::
+:::
 
 # Vectors
 

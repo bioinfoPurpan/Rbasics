@@ -4,4 +4,4 @@ project:
 format:
   revealjs:
     theme: default
-    transition: slide
+    transition: none
