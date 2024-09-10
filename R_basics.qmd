@@ -1,8 +1,33 @@
 ---
 title: "R Basics"
-author : "Rüçhan Ekren, Jean Monlong, Margot Zahm"
+author:
+  - name: Rüçhan Ekren
+    orcid: 0000-0001-6737-7281
+    
+  - name: Jean Monlong
+    orcid: 0000-0002-9737-5516
+    
+  - name: Margot Zahm
+    orcid: 0000-0001-8632-0109
+    
 slide-level: 2
+format:
+  live-revealjs:
+    theme: simple
+    auto-stretch: false
+    self-contained: true
+    embed-resources: true
+    scrollable: true
+webr:
+  cell-options:
+    fig-width: 10
+    fig-height: 6
+    max-lines: 15
+revealjs-plugins:
+  - drop
 ---
+
+
 
 # Why R?
 
@@ -212,21 +237,24 @@ Solving errors is an important skill to learn.
 ::: {.column}
 - **numeric** e.g. numbers
 
-```{r}
+```{webr}
+#| autorun: false
 0.1
 42
 -10e6
 ```
 
 - **logical Binary** two possible values
-```{r}
+```{webr}
+#| autorun: false
 TRUE
 FALSE
 ```
 :::
 ::: {.column}
 - **character** e.g. words between `"`
-```{r}
+```{webr}
+#| autorun: false
 "male"
 'ENSG007'
 "Allez les bleus"
@@ -253,11 +281,13 @@ Comment your script to help you remember what you have done.
 ### Complex type
 
 - **vector**: Ordered collection of elements of the same type
-```{r}
+```{webr}
+#| autorun: false
 seq(1, 10, 2)
 ```
 - **list**: Flexible container, mixed type possible. Recursive
-```{r}
+```{webr}
+#| autorun: false
 list(name = "John Doe",
       age = "40",
       skills = c("sing", "dance", "run"),
@@ -271,14 +301,16 @@ list(name = "John Doe",
 ### Complex type
 
 - **matrix**: Table of elements of the same type
-```{r}
+```{webr}
+#| autorun: false
 matrix(c(1:6), 
         nrow = 2, ncol = 3)
 matrix(c("one", "two", "three", 1:6), 
         nrow = 3, ncol = 3)
 ```
 - **data.frame**: Table of mixed type elements
-```{r}
+```{webr}
+#| autorun: false
 data.frame(
   Name = c("John", "Jane"),
   Age = c(25, 30),
@@ -316,7 +348,8 @@ The name of the object followed by the assignment symbol and the value.
 :::
 
 ::: {.fragment}
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 valid.name_123 = 2
 valid.name_123
@@ -345,7 +378,8 @@ You can use operators on objects to modify them. Depending on the object format,
 - modulo: `%%`
 :::
 ::: {.column}
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 2+3
 5-2
@@ -379,7 +413,8 @@ You can use operators on objects to modify them. Depending on the object format,
 ### Correction
 :::
 
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 my_number = 42
 my_new_number = my_number * 6
@@ -400,7 +435,8 @@ Try to raise errors using operators.
 :::
 
 ::: { .fragment }
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 # "Six" * "Three"
 # 10 %% 0
@@ -421,13 +457,14 @@ Try to raise errors using operators.
 - Read the help manual to know more about a function (`help`, `?` or `F1`)
 :::
 ::: { .fragment }
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 sqrt(9)
 sqrt.valid.name_123 = sqrt(valid.name_123)
 sqrt.valid.name_123
 ```
-```{.r}
+```{webr}
 help(sqrt)
 ?sqrt
 ```
@@ -449,7 +486,8 @@ Some functions are in the default installation of R. Other functions come from p
 - `1:10` Vector with numbers from 1 to 10
 :::
 
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 luckyNumbers = c(4,8,15,16,23,42)
 luckyNumbers
@@ -501,7 +539,8 @@ Using index/position between []
 - `length()` Number of elements in the vector
 - `names()` Get or set the names of the vector's value
 :::
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 luckyNumbers[3]
 luckyNumbers[2:4]
@@ -526,7 +565,8 @@ luckyNumbers["philip"]
 - `rev()` Reverse a vector
 :::
 
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 luckyNumbers
 sort(luckyNumbers)
@@ -553,7 +593,8 @@ sample(1:10)
 - `sum` Sum of the vector's values
 :::
 
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 head(samples)
 summary(luckyNumbers)
@@ -579,7 +620,8 @@ min(luckyNumbers)
 - Other exist but let's forget about them for now 
 :::
 
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 luckyNumbers + 2
 luckyNumbers * 4
@@ -602,7 +644,8 @@ luckyNumbers / 1:length(luckyNumbers)
 :::
 
 ::: {.fragment}
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 my_numbers = rnorm(5)
 my_favorite_number = my_numbers*6
