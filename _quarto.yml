@@ -1,8 +1,0 @@
-project:
-  type: default
-
-format:
-  revealjs:
-    theme: white
-    transition: none
-    embed-resources: true
