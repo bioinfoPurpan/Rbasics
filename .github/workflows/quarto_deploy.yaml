@@ -23,7 +23,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Quarto Live Extension
-        run: quarto add r-wasm/quarto-live --no-prompt
+        run: | 
+          quarto add r-wasm/quarto-live --no-prompt
+          quarto add r-wasm/quarto-drop --no-prompt
 
       - name: Set up Python
         uses: actions/setup-python@v4
