@@ -1,3 +1,5 @@
 nbclient
 nbformat
+ipykernel
+jupyter
 PyYAML
