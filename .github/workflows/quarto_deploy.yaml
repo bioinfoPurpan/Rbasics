@@ -1,21 +1,26 @@
-name: Build Quarto Documents
+name: Deploy Quarto Documents
 
 on:
   push:
     branches:
       - main
 
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
@@ -29,13 +34,9 @@ jobs:
             any::knitr
             any::rmarkdown
 
-      - name: Render Quarto
-        uses: quarto-dev/quarto-actions/render@v2
+      - name: Publish to GitHub Pages (and render) 
+        uses: quarto-dev/quarto-actions/publish@v2
         with:
-          to: html
-
-      - name: Upload Quarto presentation
-        uses: actions/upload-artifact@v3
-        with:
-          name: quarto-artifacts
-          path: _site/
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
