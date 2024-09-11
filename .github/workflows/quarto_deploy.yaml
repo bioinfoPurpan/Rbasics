@@ -23,7 +23,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Quarto Live Extension
-        run: quarto add r-wasm/quarto-live
+        run: quarto add r-wasm/quarto-live --no-prompt
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
