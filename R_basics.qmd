@@ -50,6 +50,10 @@ slide-level: 2
 - More and more popular among data scientists and (now) biologists
 :::
 
+## Lots of bioinfo packages
+
+![](images/BiocScreenshot.JPG){width=100%}
+
 ## Workshop Setup
 
 <div style="display: flex; align-items: center;">
@@ -315,10 +319,10 @@ These are the basic complex types. It exists a lot of different complex objects 
 
 ::: { .callout appearance="simple" }
 - Use letters, numbers, dot or underline characters
-- Start with letter or the dot not followed by a number
+- Start with letter (or the dot not followed by a number)
 - Some names are forbidden (ex. `if`, `else`, `TRUE`, `FALSE`)
-- Correct: valid.name, valid_name, valid2name3
-- Incorrect: valid name, valid-name, 1valid2name3
+- Correct: `valid.name`, `valid_name`, `valid2name3`
+- Incorrect: `valid name`, `valid-name`, `1valid2name3`
 :::
 
 ::: {.fragment}
@@ -356,7 +360,7 @@ You can use operators on objects to modify them. Depending on the object format,
 ::: {.columns}
 ::: {.column}
 - addition: `+`
-- substraction: `-`
+- subtraction: `-`
 - multiplication: `*`
 - division: `/`
 - exponent: `^` or `**`
@@ -388,9 +392,9 @@ You can use operators on objects to modify them. Depending on the object format,
 2. Multiply it by 6
 3. Add 21
 4. Divide it by 3
-5. Substract 1
+5. Subtract 1
 6. Halve it
-7. Substract its original value
+7. Subtract its original value
 :::
 
 ## Objects - Arithmetic operators
@@ -507,7 +511,7 @@ samples
 
 ::: { .callout appearance="simple" }
 ### Instructions
-- Create a `vector` withe 7 *numeric* values
+- Create a `vector` with 7 *numeric* values
 - Create a `vector` with 7 *character* values
 :::
 
@@ -615,30 +619,33 @@ luckyNumbers - luckyNumbers
 luckyNumbers / 1:length(luckyNumbers)
 ```
 
-## Exercise - Guess my favorite number
+## Exercise
 
 ::: { .callout appearance="simple" }
 ### Instructions
 
-1. Create a vector with 5 numeric values
-2. Multiply it by 6
-3. Add 21
-4. Divide it by 3
-5. Substract 1
-6. Halve it
-7. Substract its original values
+1. Create a vector with 100 random numeric values (hint: `runif` or `rnorm`)
+2. Subtract the average of those values
+3. Divide by the standard deviation
+3. Multiply all the values by 10
+3. Add 100 to all the values
+4. Compute summary statistics (minimum/maximum, median, mean)
+5. Compute the standard deviation of the new values
+5. Plot the histogram the new values with the `hist` function
+
 :::
 
 ::: {.fragment}
 ```{webr}
 #| autorun: false
 #| echo: true
-my_numbers = rnorm(5)
-my_favorite_number = my_numbers*6
-my_favorite_number = my_favorite_number + 21
-my_favorite_number = my_favorite_number / 3
-my_favorite_number = my_favorite_number - 1
-my_favorite_number = my_favorite_number / 2
-my_favorite_number - my_numbers
+my_numbers = rnorm(1000)
+my_new_numbers = my_numbers - mean(my_numbers)
+my_new_numbers = my_new_numbers / sd(my_new_numbers)
+my_new_numbers = 10 * my_new_numbers
+my_new_numbers = 100 + my_new_numbers
+summary(my_new_numbers)
+sd(my_new_numbers)
+hist(my_new_numbers)
 ```
 :::
