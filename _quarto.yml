@@ -2,7 +2,16 @@ project:
   type: default
 
 format:
-  revealjs:
-    theme: white
-    transition: none
+  live-revealjs:
+    theme: simple
+    auto-stretch: false
+    self-contained: true
     embed-resources: true
+    scrollable: true
+webr:
+  cell-options:
+    fig-width: 10
+    fig-height: 6
+    max-lines: 15
+revealjs-plugins:
+  - drop
