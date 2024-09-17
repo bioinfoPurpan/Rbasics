@@ -649,3 +649,1126 @@ sd(my_new_numbers)
 hist(my_new_numbers)
 ```
 :::
+
+## Reminder of last session
+
+::: { .callout appearance="simple" }
+### Objects
+- There are three basic types of objects: `numeric`, `character` and `boolean`
+- Basic objects can be combined into more complex objects, such as `vector`s, `list`s, `matrice`s and `data.frame`s
+- Objects need to be 'stored' in variables so they can be easily retrieved and modified
+- Basic and complex numeric objects can handle arithmetic operations
+- Functions can be applied to basic and/or complex objects depending on the type of data they are designed to process
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+1.25 
+```
+
+## Reminder of last session
+::: { .callout appearance="simple" }
+### Vectors
+
+- A `vector` is a sequence of elements that are all of the same type
+- There are multiple ways to create it
+- `[]` are used to manipulate elements of a vector
+- Numeric vectors support arithmetic operations
+- Elements in a vector can be named
+- Various functions can be used with vectors to modify or summarize them
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+c(1,7,2,6,3,46,98,65)
+```
+
+# Matrix
+
+## Matrix - Creation
+
+::: { .callout appearance="simple" }
+`matrix()`: Creates a matrix from a vector
+
+`rbind()/cbind()`: Binds multiple vectors of a same length to create a matrix
+:::
+
+::: {.fragment}
+::: {.columns}
+::: {.column width=70%}
+```{webr}
+#| autorun: false
+#| echo: true
+neo = matrix(1:12,nrow=3)
+neo
+
+vector1 = 1:12
+vector2 = 2:13
+vector3 = 3:14
+vectors2matrix = cbind(vector1, vector2, vector3)
+vectors2matrix
+```
+:::
+::: {.column width=30% }
+![](images/fill_matrix.PNG)
+:::
+:::
+:::
+
+## Matrix - Manipulation
+
+::: { .callout appearance="simple" }
+`mat[i,j]`: To select element at row *i* and column *j*. *i* and *j* can be vectors to select multiple elements.
+
+`t()`: To transpose the matrix
+
+`rbind()/cbind()`: To concatenate matrix vertically or horizontally
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+neo
+
+neo[1,1]
+neo[1,]
+neo[,1]
+neo[1:2,1:3]
+
+neo[1:2,1:3] = matrix(rep(1,6),nrow=2)
+neo
+t(neo)
+
+rbind(neo)
+cbind(neo)
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Create a matrix with 10 rows and 4 column with numbers from 1 to 40
+2. Change the element in row 6, column 1 into value 666
+3. Fill the 3rd row with ones
+4. Remove the last column
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+exo_mtx = matrix(1:40,10,4)
+exo_mtx
+
+exo_mtx[6,1] = 666
+exo_mtx
+
+exo_mtx[3,] = rep(1,4)
+exo_mtx
+
+exo_mtx = [,-4]
+exo_mtx
+```
+:::
+
+## Matrix - Manipulation
+
+::: { .callout appearance="simple" }
+`dim()`: Returns the dimension of the matrix, e.g. number of rows and columns 
+`rownames()/colnames()`: Get or set the names of the rows/columns
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+neo
+dim(neo)
+
+colnames(neo) = c("gene1", "gene2", "gene3", "gene4")
+rownames(neo) = paste0(rep("sample", 3), 1:3)
+neo
+neo["sample2", "gene3"]
+```
+:::
+
+## Matrix - Operations
+
+::: { .callout appearance="simple" }
+`length()`, `head()`, `tail()`
+
+For numeric matrix: `min()`, `max()`, `sum()`, `mean()`, `summary()`... 
+
+Arithmetic operations: `+`, `-`, `*`, `/` 
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+head(neo)
+mean(neo)
+summary(neo)
+sum(neo)/length(neo)
+
+neo * 2
+neo + neo
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Create a matrix with 100 rows and 4 column with random numbers
+2. Name the columns
+3. Add 2 to each element of the first column
+4. Multiply all the elements of the second column by 4
+5. Find which column has the largest mean value
+6. Find which column has the largest value
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+exo_mtx = matrix(runif(400),100,4)
+dim(exo_mtx)
+
+colnames(exo_mtx) = paste(rep("Sample", 4), letters[1:4], sep = "_")
+head(exo_mtx)
+
+exo_mtx[, "Sample_a"] = exo_mtx[, "Sample_a"] + 2
+exo_mtx[, 2] = exo_mtx[, 2] * 4
+
+mean(exo_mtx[,1])
+mean(exo_mtx[,2])
+
+max(exo_mtx[,1])
+max(exo_mtx[,2])
+
+summary(exo_mtx)
+```
+:::
+
+## Matrix - `apply()` function
+
+::: { .callout appearance="simple" }
+### Your new best friend
+
+- Apply a function to each row (or column) of a matrix
+- No manual iteration, the loop is implicit
+- Second parameter: `1` means row and `2` means columns
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+apply(exo_mtx, 2, mean)
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Create a matrix with 100 rows and 100 column with random numbers
+2. Compute the median value of each column
+3. What is the minimal median value? Maximal?
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+exo_mtx = matrix(runif(1000),100,100)
+head(exo_mtx)
+
+apply(exo_mtx, 2, median)
+apply(exo_mtx, 2, min)
+apply(exo_mtx, 2, max)
+```
+:::
+
+## Matrix - shortcut to apply
+
+::: { .callout appearance="simple" }
+Some functions are wrappers of `apply()`:
+
+- `rowSums()` equivalent to `apply(, 1, sum)`
+- `colSums()` equivalent to `apply(, 2, sum)`
+- `colMeans()` equivalent to `apply(, 1, mean)`
+- `rowMeans()` equivalent to `apply(, 2, mean)`
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+apply(exo_mtx, 1, mean)
+```
+:::
+
+# Data Frames
+
+## Data frames - Creation and manipulations
+::: { .callout appearance="simple" }
+A data frame is like a matrix but it can be composed of different data types.
+
+`data.frame()` To create a data frame
+
+`as.data.frame()` To transform a matrix into a data frame
+
+`[]` or `$name` To select elements of a data.frame
+
+`t()` To transpose a matrix
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+genes_data <- data.frame(
+  name = paste(rep("gene", 1000), 1:1000, sep = "_"),
+  sample2 = runif(1000)*10,
+  sample1 = runif(1000)*10,
+  sample3 = runif(1000)*10,
+  sample4 = runif(1000)*10,
+  has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
+)
+
+head(genes_data)
+
+as.data.frame(neo)
+
+head(genes_data$sample1)
+
+genes_data["gene_1", "sample_1"]
+
+head(genes_data[, c(1,3)])
+
+head(t(genes_data))
+
+genes_data$sample5 = runif(1000)*10
+```
+:::
+
+## Data frames - Summarize and concatenation
+::: { .callout appearance="simple" }
+`dim()`: Returns the dimension of the data frame, e.g. number of rows and columns 
+`rownames()/colnames()`: Get or set the names of the rows/columns 
+`rbind()/cbind()`: To concatenate data frame vertically or horizontally
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+genes_data2 <- data.frame(
+  name = paste(rep("gene", 1000), 1001:2000, sep = "_"),
+  sample2 = runif(1000)*10,
+  sample1 = runif(1000)*10,
+  sample3 = runif(1000)*10,
+  sample4 = runif(1000)*10,
+  sample5 = runif(1000)*10,
+  has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
+)
+dim(genes_data2)
+head(rownames(genes_data2))
+
+rbind(genes_data, genes_data2)
+cbind(genes_data, genes_data2)
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Create a data frame with a character column, two numeric columns and 100 rows
+2. Display the first few rows of this data frame
+3. Calculate the average of the 3rd column
+4. Add a new column containing boolean values
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+df = data.frame(
+  Individual = c(paste0(rep("Ind", 100), 1:100)),
+  Age = sample(1:100),
+  Score = sample(1:100, replace = FALSE)
+)
+
+head(df)
+
+average_score = mean(df$Score)
+print(average_score)
+
+df$Passed = sample(c(TRUE, FALSE), size = 100, replace = TRUE)
+```
+:::
+
+## Data frames - Calculation
+::: { .callout appearance="simple" }
+You can use arithmetic operations (`+-*/`) and functions (`apply()` and others) as with a matrix.
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+summary(genes_data)
+
+colMeans(genes_data[c(1:10,25,42),3:5])
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Create a data frame with 2000 random gene names, random gene annotation (mRNA, lncRNA, rRNA, etc...), and 6 columns with random expression
+2. Multiply each expression column by 100
+3. Find the column with the highest average expression
+4. Find the gene with the lowest median expression
+5. Order the data frame based on the sum expression of genes from the max to the min
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+genes_data <- data.frame(
+  name = paste(rep("gene", 2000), 1:2000, sep = "_"),
+  annotation = sample(c("mRNA", "lncRNA", "tRNA", "rRNA", "snoRNA", "pseudogene"), 2000, replace = TRUE),
+  sample2 = runif(2000),
+  sample1 = runif(2000),
+  sample3 = runif(2000),
+  sample4 = runif(2000),
+  sample5 = runif(2000),
+  sample6 = runif(2000)
+)
+
+genes_data[,3:8] = genes_data[,3:8]*100
+
+colnames(genes_data)[3:8][which.max(colMeans(genes_data[,3:8]))]
+
+rownames(genes_data)[which.min(apply(genes_data[,3:8], 1, median))]
+
+genes_data[order(-rowSums[genes_data[,3:8]]),]
+```
+:::
+
+# Import/Export data
+
+## Import/Export data - Where is my data ?
+
+::: { .callout appearance="simple" }
+### File path
+
+To tell R where to find your data, you need to specify the path to the file. There are two types of paths for the same file:
+
+- **Absolute Path**: This is the full path to the file, which you can see in the address bar when you are in a folder.
+- **Relative Path**: This describes how to navigate from one folder to another to reach the file.
+
+Paths are always enclosed in double quotes (`"`).
+:::
+
+## Import/Export data - Where is my data ?
+
+::: { .callout appearance="simple" }
+### Working directory
+
+Change the directory where R is working
+
+![](images/rstudio_change_workdir.png)
+``
+:::
+
+## Import/Export data - Read a text file
+
+::: { .callout appearance="simple" }
+### Easy but important
+
+- What data structure is more appropriate? vector, matrix?
+- Does R read/write the file the way you want?
+- The extra parameters of the functions are your allies
+:::
+
+## Import/Export data - Read a text file
+
+::: { .callout appearance="simple" }
+### read.table()
+
+To read a data.frame from a multi-column file 
+
+- `file=`the path to the file 
+- `header=` Set to TRUE if the 1st line correspond to column names 
+- `as.is=` Set to TRUE to read the values as simple type, **recommended** 
+- `sep=` The character that separate the columns, e.g. `,` or `\t` (tabs) 
+- `row.names=` The column number to use as row names
+``
+:::
+
+::: {.fragment}
+```{.r}
+input.data = read.table("path/to/my/file.txt", as.is = TRUE,
+                        header = TRUE, sep = "\t", row.names = 1)
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Import dataForBasicPlots.tsv into an object called mat.ge
+
+1. How many genes are there?
+2. How many samples are there?
+3. Print the first 5 rows and columns
+:::
+
+::: {.fragment}
+```{r}
+#| echo: true
+mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
+nrow(mat.ge) ## number of genes
+ncol(mat.ge) ## number of samples
+mat.ge[1:5,1:5]
+```
+:::
+
+## Import/Export data - Write a text file
+
+::: { .callout appearance="simple" }
+### write.table()
+
+To write a data.frame in a multi-column file 
+
+- `df` the data.frame to write 
+- `file=` the file name 
+- `col.names=` TRUE print the column names in the first line 
+- `row.names=` TRUE print the row names in the first columns 
+- `quote=` TRUE surround character by double quotes 
+- `sep=` the character that separates each column. ' ' by default.
+:::
+
+::: {.fragment}
+```{.r}
+write.table(resToWrite, file = "path/to/file.txt", col.names = TRUE,
+            row.names = FALSE, quote = FALSE, sep = "\t")
+```
+:::
+
+## Import/Export data - R objects
+
+::: { .callout appearance="simple" }
+- `saveRDS()` Save one R object into a file. Use *.rds* extension 
+- `save()` Save multiple R objects into a file. Use *.RData* as extension 
+- `save.image()` Save the entire R environment 
+- `readRDS()` Read a R object from a *.rds* file 
+- `load()` Load R objects from a *.RData* file 
+:::
+
+::: {.fragment}
+```{.r}
+saveRDS(luckyNumbers, file = "my_vector.rds")
+new_luckyNumber = readRDS("my_vector.rds")
+
+save(luckyNumbers, tenOnes, mat, file = "uselessData.RData")
+load("uselessData.RData")
+```
+:::
+
+## Import/Export data - Save plots
+
+::: { .callout appearance="simple" }
+### Easy way
+:::
+
+![](images/save_plots.png)
+
+## Import/Export data - Save plots
+
+::: { .callout appearance="simple" }
+### Automatic way
+
+1. Open the connection to an output file (`pdf()`, `png()`, `jpeg()`...)
+2. Plot as usual
+3. close the connection with `dev.off()`
+:::
+
+::: {fragment}
+```{.r}
+pdf("/path/to/myNicePlot.pdf")
+plot(...)
+dev.off()
+```
+:::
+
+## Reminder of last session
+::: { .callout appearance="simple" }
+In next session...
+:::
+
+# Basic plotting
+
+## Basic plotting - Functions
+
+::: { .callout appearance="simple" }
+### hist
+
+Plot the value distribution of a vector. 
+`x` The vector with the values to plot
+:::
+
+::: { .callout appearance="simple" }
+### plot
+
+Plot one vector against the other. 
+`x` The first vector to plot (*x-axis*) 
+`y` The second vector to plot (*y-axis*) 
+`type` How the points are plotted. "p" for points, "l" for points joined by lines
+:::
+
+::: { .callout appearance="simple" }
+### boxplot
+
+Plot the distribution of variables. 
+`x` The matrix of distributions
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+hist(mat.ge[,1])
+plot(mat.ge[,1], mat.ge[,2])
+boxplot(mat.ge)
+```
+:::
+
+## Basic plotting - Common parameters
+
+::: { .callout appearance="simple" }
+`main=` A title for te plot 
+`xlab=/ylab=` A title for the x/y axis 
+`xlim=/ylim=` A vector of size two defining the desired limits on the x/y axis
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+hist(mat.ge[,1],main="A basic graph",
+xlab="first column values")
+plot(mat.ge[,1],mat.ge[,2],main="Another basic graph",
+xlab="first column values",ylab="second column values")
+```
+:::
+
+## Basic plotting - Extra
+
+::: { .callout appearance="simple" }
+### Extra parameters
+
+`col=` The colour of the points/lines  
+`pch=` The shape of the points 
+`lty=` The shape of the lines
+:::
+
+::: { .callout appearance="simple" }
+### Extra functions
+
+`lines()` Same as plot but super-imposed to the existent one
+`abline()` Draw a vertical/horizontal line
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+plot(mat.ge[,1],mat.ge[,2],main="Another basic graph",
+xlab="first column values",ylab="second column values")
+lines(mat.ge[,1],mat.ge[,3],type="p",col=2,pch=2)
+abline(h=0,lty=2)
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Generate plots for:
+1. a boxplot of columns 1 to 10.
+2. the distribution of the median gene expression. Add a vertical dotted ine to mark their average value.
+3. the distribution of the median sample expression. If any visual outlier, remove it and check the distribution again.
+4. the expression of gene 333 againt gene 666. Surimpose in red triangles the expression of gene 333 against gene 667.
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+
+sampMed = apply(mat.ge,2,median)
+hist(sampMed,xlab="gene expression",ylab="number of samples",main="Average gene expression across the genes")
+mat.ge.noOutlier = mat.ge[,-which.min(sampMed)]
+sampMed.noOutlier = apply(mat.ge.noOutlier,2,median)
+hist(sampMed.noOutlier,xlab="gene expression",ylab="number of samples",main="Average gene expression across the genes")
+
+mat.ge = as.matrix(mat.ge)
+plot(mat.ge["gene333",],mat.ge["gene666",],xlab="gene333",ylab="gene666",main="Correlated genes")
+lines(mat.ge["gene333",],mat.ge["gene667",],type="p",col=2,pch=2)
+
+boxplot(mat.ge[,1:10],xlab="sample",ylab="expression",main="Box plot example")
+```
+:::
+
+# Conditions
+
+## Conditions - Logical values
+
+::: { .callout appearance="simple" }
+### Logical type
+
+TRUE / FALSE values
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+hgssRules = TRUE
+dwight = FALSE
+male = c(TRUE, FALSE, TRUE)
+```
+:::
+
+## Conditions - Logical tests
+
+::: { .callout appearance="simple" }
+`==` Are both values equal? 
+`> or >=` Is left value greater (or equal) than right value? 
+`< or <=` Is left value smaller (or equal) than right value? 
+`!` NOT operator, negates the value 
+`|` OR operator, returns TRUE if either are TRUE
+`&` AND operator, returne TRUE if both are TRUE
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+test <- 2 + 2 == 4
+test
+!test
+test & !test
+test | !test
+```
+:::
+
+## Conditions - Vectorized operations
+
+::: { .callout appearance="simple" }
+Any logical test can be vectorized. 
+`which` returns the index of the vectors with TRUE values
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+c(TRUE, TRUE) & c(TRUE, FALSE)
+which(5:10 == 6)
+which(luckyNumbers > 2)
+luckyNumbers[which(luckyNumbers>2 & luckyNumbers<10)]
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Create a vector of random integer numbers between 0 and 10
+2. Remove values below 3
+3. Change to 8 any value higher than 8
+4. On mat.ge, remove all genes with median expression lower than 1
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+randVec = sample(0:10, 30, TRUE)
+randVec = round(runif(30, -0.5, 10.5))
+randVec = randVec[which(randVec>=3)]
+randVec[which(randVec>8)] = 8
+
+## Remove genes with median lower than 1
+mat.ge = mat.ge[which(geneMed>=1),]
+```
+:::
+
+## Conditions - Testing conditions
+
+::: { .callout appearance="simple" }
+### if else
+Test a condition. If TRUE, runs some instructions. If FALSE, runs something else or nothing.
+
+```{.r}
+if( Condition ){
+... Instructions
+}
+```
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+luck = "none"
+if(length(luckyNumbers)>3){
+luck = "a lot"
+} else if(length(luckyNumbers)==3){
+luck = "some"
+} else {
+luck = "not enough"
+}
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Write a `if` block that automatically classify the expression of the first gene into:
+- 'high' if its maximum value is higher than 4
+- 'low' if not
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+classGene1 = "unknown"
+if(median(mat.ge[1,]) > 4){
+  classGene1 = "high"
+} else {
+  classGene1 = "low"
+}
+
+classGene1 = ifelse(median(mat.ge[1,]) > 4, "high", "low") ## Other way
+```
+:::
+
+# Functions
+
+## Functions - Creation
+
+::: { .callout appearance="simple" }
+- Name of the function with parameters between parenthesis
+- Takes input(s) and return something, e.g. `mean(lunkyNumbers)`
+:::
+
+::: { .callout appearance="simple" }
+### Do your own
+
+- Start with `function()` to define a function
+- All the objects created within the function are temporary
+- `return()` specifies what will be returned by the function
+:::
+
+::: {.fragment}
+```{.r}
+myFunctionName <- function(input.obj1,second.input.obj ) {}
+...
+... Instructions on 'input.obj1' and 'second.input.obj'
+... to generate 'my.output.obj'
+...
+return(my.output.obj)
+}
+
+myFunctionName(1,c(2,4,5))
+```
+:::
+
+## Functions - Example
+
+::: { .callout appearance="simple" }
+This function takes a vector as input and:
+- removes values lower than 3
+- changes to 8 values higher than 8
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+clean.vec.fun <- function(x){
+x = x[which(x>=3)]
+x[which(x>8)] = 8
+return(x)
+}
+vec110 = 1:10
+vec110
+vec110.cleaned = clean.vec.fun(vec110)
+vec110.cleaned
+```
+:::
+
+## Functions - Concept
+
+![](images/function_schema.PNG){width=100%}
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Create a function that classify the average value of a vector. It returns:
+- *small* if the average is below 3
+- *medium* if the average is between 3 and 7
+- *high* if the average is above 7 
+Test your function on vectors with random numbers from 0 to 10. 
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+classify <- function(v,low.th=3,high.th=7){
+    v.med = median(v)
+    if(v.med < low.th){
+        return("small")
+    } else if(v.med > high.th){
+        return("high")
+    } else {
+        return("medium")
+    }
+}
+
+classify(1:3)
+classify(1:10)
+classify(7:10)
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Create a function that:
+1. returns the average of the minimum and maximum value of a vector
+2. returns how many values are higher than 3 in a vector
+Test your function on vectors with random numbers from 0 to 10.
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+aveMinMax <- function(input){
+  return(mean(c(min(input), max(input))))
+}
+higher3 <- function(input){
+  return(length(which(input>3)))
+}
+## Other way
+higher3 <- function(input){
+  return(sum(input>3))
+}
+
+aveMinMax(1:3)
+higher3(1:10)
+higher3(7:10)
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Use your functions on all mat.gene data frame
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+geneAveMinMax = apply(mat.ge, 1, classify)
+
+geneAveMinMax = apply(mat.ge, 1, aveMinMax)
+```
+:::
+
+## Final exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+1. Load metadata.RData file. It has a groups vector with either case/control status for the mat.ge samples.
+2. Write a function that would compute the difference between the gene expression of cases and controls.
+3. Apply this function to each gene in mat.ge
+4. Plot the distribution of the results
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+load("metadata.RData")
+head(groups)
+
+geDiff <- function(geneExp){
+  geCases = geneExp[which(groups=="case")]
+  geControls = geneExp[which(groups=="control")]
+  return(geCases - geControls)
+}
+
+mat.ge.diff = apply(mat.ge, 1, geDiff)
+hist(mat.ge.diff)
+```
+:::
+
+# Loops
+
+## Loops - Definition
+
+::: { .callout appearance="simple" }
+### for loops
+
+Iterates over the elements of an iterator and runs intructions.
+
+```{.r}
+for(v in vec){
+... Instruction
+}
+```
+:::
+
+::: { .callout appearance="simple" }
+### while loops
+
+Runs instructions as long as a condition is TRUE.
+
+```{.r}
+while( CONDITION ){
+... Instruction
+}
+```
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+facto = 1
+for(n in 1:10){
+facto = facto * n
+}
+```
+:::
+
+## Exercise
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Write a function that computes the mean values of the columns:
+- using the apply function
+- using a for loop
+- using a while loop
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+facto = 1
+for(n in 1:10){
+facto = facto * n
+}
+```
+:::
+
+# Extra
+
+## Extra - Type coercion
+::: { .callout appearance="simple" }
+- Automatic conversion of an object to another type, e.g numeric -> character, logical -> numeric
+- Awareness for debugging
+- Useful sometimes
+:::
+
+::: { fragment }
+```{webr}
+#| autorun: false
+#| echo: true
+is.numeric( c(1:10,"eleven") )
+logical.vector = c(TRUE,TRUE,FALSE,TRUE,FALSE)
+sum(logical.vector)
+mean(logical.vector)
+```
+:::
+
+## Extra - Character operations
+::: { .callout appearance="simple" }
+`paste()` Pastes several characters into one 
+`grep()` Searches for a pattern in a vector and returns the index when matched 
+`grepl()` Searches a pattern in a vector and returns TRUE if found 
+`strsplit()` Splits a string
+:::
+
+::: { fragment }
+```{webr}
+#| autorun: false
+#| echo: true
+sample.name = "Ob5cU8eN4mE"
+file.name = paste("pathToYourDirectory/greatAnalysis-",
+sample.name,".txt",sep="")
+which(sample.names=="controlA" & sample.names=="controlB")
+grep("control",sample.names)
+```
+:::
+
+## Extra - One-liner quiz
+
+::: { .callout appearance="simple" }
+### Instructions
+
+Write R commands to address each question. Only one_line command allowed. The shorter the better.
+1. From a matrix of numeric, compute the proportion of columns
+with average value higher than 0.
+2. From a matrix of numeric, print the name of the column with the
+highest value.
+3. From a matrix of numeric, print the rows with only positive
+values.
+:::
+
+::: { fragment }
+```{webr}
+#| autorun: false
+#| echo: true
+mean(apply(mat,2,mean)>0)
+colnames(mat)[which.max(apply(mat,2,max))]
+mat[which(apply(mat,1,function(r)all(r>0))),]
+```
+:::
