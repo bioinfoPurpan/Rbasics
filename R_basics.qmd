@@ -654,8 +654,8 @@ hist(my_new_numbers)
 
 ::: { .callout appearance="simple" }
 ### Objects
-- There are three basic types of objects: numeric, character and boolean
-- Basic objects can be combined into more complex objects, such as vectors, lists, matrices and data.frames
+- There are three basic types of objects: `numeric`, `character` and `boolean`
+- Basic objects can be combined into more complex objects, such as `vector`s, `list`s, `matrice`s and `data.frame`s
 - Objects need to be 'stored' in variables so they can be easily retrieved and modified
 - Basic and complex numeric objects can handle arithmetic operations
 - Functions can be applied to basic and/or complex objects depending on the type of data they are designed to process
@@ -671,7 +671,7 @@ hist(my_new_numbers)
 ::: { .callout appearance="simple" }
 ### Vectors
 
-- A vector is a sequence of elements that are all of the same type
+- A `vector` is a sequence of elements that are all of the same type
 - There are multiple ways to create it
 - `[]` are used to manipulate elements of a vector
 - Numeric vectors support arithmetic operations
@@ -720,7 +720,7 @@ vectors2matrix
 ## Matrix - Manipulation
 
 ::: { .callout appearance="simple" }
-`mat[i,j]`: To select element at row i and column j. i and j can be vectors to select multiple elements.
+`mat[i,j]`: To select element at row *i* and column *j*. *i* and *j* can be vectors to select multiple elements.
 
 `t()`: To transpose the matrix
 
@@ -857,14 +857,14 @@ summary(exo_mtx)
 ```
 :::
 
-## Matrix - apply function
+## Matrix - `apply()` function
 
 ::: { .callout appearance="simple" }
 ### Your new best friend
 
 - Apply a function to each row (or column) of a matrix
 - No manual iteration, the loop is implicit
-- Second parameter: 1 means row and 2 means columns
+- Second parameter: `1` means row and `2` means columns
 :::
 
 ::: {.fragment}
@@ -1052,7 +1052,7 @@ colMeans(genes_data[c(1:10,25,42),3:5])
 #| echo: true
 genes_data <- data.frame(
   name = paste(rep("gene", 2000), 1:2000, sep = "_"),
-  annotation = sample(c("mRNA", "lncRNA", "tRNA", "rRNA", "snoRNA", "pseudogene"), n = 100, replace = FALSE)
+  annotation = sample(c("mRNA", "lncRNA", "tRNA", "rRNA", "snoRNA", "pseudogene"), 2000, replace = TRUE),
   sample2 = runif(2000),
   sample1 = runif(2000),
   sample3 = runif(2000),
@@ -1063,11 +1063,11 @@ genes_data <- data.frame(
 
 genes_data[,3:8] = genes_data[,3:8]*100
 
-colnames(genes_data)[which.max(colMeans(genes_data[,3:8]))]
+colnames(genes_data)[3:8][which.max(colMeans(genes_data[,3:8]))]
 
 rownames(genes_data)[which.min(apply(genes_data[,3:8], 1, median))]
 
-genes_data[order(rowSums[genes_data[,3:8]], descending = TRUE),]
+genes_data[order(-rowSums[genes_data[,3:8]]),]
 ```
 :::
 
@@ -1117,7 +1117,7 @@ To read a data.frame from a multi-column file
 - `file=`the path to the file 
 - `header=` Set to TRUE if the 1st line correspond to column names 
 - `as.is=` Set to TRUE to read the values as simple type, **recommended** 
-- `sep=` The character that separate the columns
+- `sep=` The character that separate the columns, e.g. `,` or `\t` (tabs) 
 - `row.names=` The column number to use as row names
 ``
 :::
