@@ -1222,7 +1222,35 @@ dev.off()
 
 ## Reminder of last session
 ::: { .callout appearance="simple" }
-In next session...
+### "Table" objects
+
+- A `matrix` is a table containing elements of one data type
+- A `data.frame` is a table with columns of different data types
+- `matrix()`, `data.frame()`: functions to create a matrix or a data frame
+- `[i,j]`: used to manipulate and replace elements
+- `rownames()`, `colnames()`: get/set the row or column names
+- Numeric columns support arithmetic operations
+- `apply()`: run a function on each row or column
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+hist(mat.ge[,1])
+plot(mat.ge[,1], mat.ge[,2])
+boxplot(mat.ge)
+```
+
+## Reminder of last session
+::: { .callout appearance="simple" }
+### Read and write files in R
+
+- Set your working directory, eg. the folder where you are working (Session > Set Working Directory)
+- `read.table()`: Basic function to read a table
+- `write.table()`: Basic function to write a table
+- `pdf()/png()/jpeg() ... dev.off()`: Save a plot in PDF/PNG/JPEG format automatically
+- You can save R objects/environments (`saveRDS()`, `save()`, `save.image()`)
+- You can load R objects/environments (`readRDS()`, `load()`)
 :::
 
 # Basic plotting
