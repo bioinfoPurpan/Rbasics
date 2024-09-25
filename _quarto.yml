@@ -1,6 +1,9 @@
 project:
   type: default
 
+resources:
+  - data
+
 format:
   live-revealjs:
     theme: simple
@@ -8,10 +11,12 @@ format:
     self-contained: true
     embed-resources: true
     scrollable: true
+
 webr:
   cell-options:
     fig-width: 10
     fig-height: 6
     max-lines: 15
+    
 revealjs-plugins:
   - drop

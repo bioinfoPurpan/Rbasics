@@ -1142,7 +1142,8 @@ Import dataForBasicPlots.tsv into an object called mat.ge
 :::
 
 ::: {.fragment}
-```{r}
+```{webr}
+#| autorun: false
 #| echo: true
 mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
 nrow(mat.ge) ## number of genes
