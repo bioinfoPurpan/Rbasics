@@ -1236,9 +1236,9 @@ dev.off()
 ```{webr}
 #| autorun: false
 #| echo: true
-hist(mat.ge[,1])
-plot(mat.ge[,1], mat.ge[,2])
-boxplot(mat.ge)
+exo_mtx = matrix(runif(1000),100,100)
+dim(exo_mtx)
+exo_mtx[1:5,1:5]
 ```
 
 ## Reminder of last session
@@ -1253,30 +1253,88 @@ boxplot(mat.ge)
 - You can load R objects/environments (`readRDS()`, `load()`)
 :::
 
+```{webr}
+#| autorun: false
+#| echo: true
+mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
+mat.ge[1:5,1:5]
+```
+
 # Basic plotting
 
 ## Basic plotting - Functions
 
 ::: { .callout appearance="simple" }
-### hist
+### `hist(x)`
 
-Plot the value distribution of a vector. 
+Plot a histogram, eg. the value distribution of a vector. 
+
 `x` The vector with the values to plot
 :::
 
-::: { .callout appearance="simple" }
-### plot
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+vector = c(1,1,2,2,3,3,4,4)
+hist(vector)
+hist(vector, breaks = c(0,1,2,3,4))
+hist(vector, breaks = 2)
+```
+:::
 
-Plot one vector against the other. 
+## Basic plotting - Functions
+
+::: { .callout appearance="simple" }
+### `barplot(x)`
+
+Plot a barplot, eg. one bar for each value of a vector. 
+
+`x` The vector with the values to plot
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+vector = c(1,1,2,2,3,3,4,4)
+names(vector) = paste0("sample", 1:8)
+barplot(vector)
+```
+:::
+
+## Basic plotting - Functions
+
+::: { .callout appearance="simple" }
+### `plot(x, y)`
+
+Plot one vector against the other using points for each element. 
+
 `x` The first vector to plot (*x-axis*) 
+
 `y` The second vector to plot (*y-axis*) 
+
 `type` How the points are plotted. "p" for points, "l" for points joined by lines
 :::
 
-::: { .callout appearance="simple" }
-### boxplot
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+vector1 = c(1,1,2,2,3,3,4,4)
+vector2 = vector1 * 4 + 5
 
-Plot the distribution of variables. 
+plot(vector1, vector2)
+```
+:::
+
+## Basic plotting - Functions
+
+::: { .callout appearance="simple" }
+### `boxplot(x)`
+
+Plot the distribution of variables.
+
 `x` The matrix of distributions
 :::
 
@@ -1284,9 +1342,9 @@ Plot the distribution of variables.
 ```{webr}
 #| autorun: false
 #| echo: true
-hist(mat.ge[,1])
-plot(mat.ge[,1], mat.ge[,2])
-boxplot(mat.ge)
+vector1 = c(1,1,2,2,3,3,4,4)
+
+boxplot(vector1)
 ```
 :::
 
@@ -1294,7 +1352,9 @@ boxplot(mat.ge)
 
 ::: { .callout appearance="simple" }
 `main=` A title for te plot 
+
 `xlab=/ylab=` A title for the x/y axis 
+
 `xlim=/ylim=` A vector of size two defining the desired limits on the x/y axis
 :::
 
@@ -1302,10 +1362,10 @@ boxplot(mat.ge)
 ```{webr}
 #| autorun: false
 #| echo: true
-hist(mat.ge[,1],main="A basic graph",
-xlab="first column values")
-plot(mat.ge[,1],mat.ge[,2],main="Another basic graph",
-xlab="first column values",ylab="second column values")
+vector = c(1,1,2,2,3,3,4,4)
+hist(vector, main="A basic graph",
+xlab="first column values",
+ylab="secon column values")
 ```
 :::
 
@@ -1315,7 +1375,9 @@ xlab="first column values",ylab="second column values")
 ### Extra parameters
 
 `col=` The colour of the points/lines  
+
 `pch=` The shape of the points 
+
 `lty=` The shape of the lines
 :::
 
@@ -1330,10 +1392,11 @@ xlab="first column values",ylab="second column values")
 ```{webr}
 #| autorun: false
 #| echo: true
-plot(mat.ge[,1],mat.ge[,2],main="Another basic graph",
-xlab="first column values",ylab="second column values")
-lines(mat.ge[,1],mat.ge[,3],type="p",col=2,pch=2)
-abline(h=0,lty=2)
+vector1 = c(1,1.5,2,2.5,3,3.5,4,4.5)
+vector2 = vector1 * 4 + 5
+
+plot(vector1, vector2)
+abline(a = 5, b = 4, lty = 2, col = "red")
 ```
 :::
 
@@ -1343,8 +1406,9 @@ abline(h=0,lty=2)
 ### Instructions
 
 Generate plots for:
+
 1. a boxplot of columns 1 to 10.
-2. the distribution of the median gene expression. Add a vertical dotted ine to mark their average value.
+2. the distribution of the median gene expression. Add a vertical dotted line to mark the average of the median gene expression.
 3. the distribution of the median sample expression. If any visual outlier, remove it and check the distribution again.
 4. the expression of gene 333 againt gene 666. Surimpose in red triangles the expression of gene 333 against gene 667.
 :::
@@ -1353,18 +1417,31 @@ Generate plots for:
 ```{webr}
 #| autorun: false
 #| echo: true
+# Step 1
+boxplot(mat.ge[,1:10],xlab="sample",ylab="expression",main="Box plot example")
 
+# Step 2
+geneMed = apply(mat.ge,1,median)
+hist(geneMed, breaks = 10,
+     xlab="gene expression",
+     ylab="number of genes",
+     main="Median gene expression across samples")
+abline(v = mean(geneMed), lty = 2)
+
+# Step 3
 sampMed = apply(mat.ge,2,median)
-hist(sampMed,xlab="gene expression",ylab="number of samples",main="Average gene expression across the genes")
 mat.ge.noOutlier = mat.ge[,-which.min(sampMed)]
 sampMed.noOutlier = apply(mat.ge.noOutlier,2,median)
-hist(sampMed.noOutlier,xlab="gene expression",ylab="number of samples",main="Average gene expression across the genes")
+hist(sampMed.noOutlier,
+     xlab="gene expression",
+     ylab="number of samples",
+     main="Median gene expression across the samples")
 
-mat.ge = as.matrix(mat.ge)
+# Step 4
+mat.ge <- as.matrix(mat.ge)
 plot(mat.ge["gene333",],mat.ge["gene666",],xlab="gene333",ylab="gene666",main="Correlated genes")
-lines(mat.ge["gene333",],mat.ge["gene667",],type="p",col=2,pch=2)
-
-boxplot(mat.ge[,1:10],xlab="sample",ylab="expression",main="Box plot example")
+par(new = TRUE) 
+plot(mat.ge["gene333",],mat.ge["gene667",],type="p",col=2,pch=2, axes = FALSE, xlab = "", ylab = "")
 ```
 :::
 
