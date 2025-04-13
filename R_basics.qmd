@@ -320,7 +320,7 @@ These are the basic complex types. It exists a lot of different complex objects 
 ::: { .callout appearance="simple" }
 - Use letters, numbers, dot or underline characters
 - Start with letter (or the dot not followed by a number)
-- Some names are forbidden (ex. `if`, `else`, `TRUE`, `FALSE`)
+- Some names are forbidden (eg. `if`, `else`, `TRUE`, `FALSE`)
 - Correct: `valid.name`, `valid_name`, `valid2name3`
 - Incorrect: `valid name`, `valid-name`, `1valid2name3`
 :::
