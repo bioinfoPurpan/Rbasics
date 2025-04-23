@@ -416,28 +416,22 @@ my_new_number = my_new_number - my_number
 my_new_number
 ```
 
-## Objects - Arithmetic operators
+## Objects - Arithmetic operators and errors
 
 ::: { .callout appearance="simple" }
-### Exercise
-
-Try to raise errors using operators.
+Some operations raise errors and others quietly return unexpected results.
 :::
 
-::: { .fragment }
 ```{webr}
 #| autorun: false
 #| echo: true
-# "Six" * "Three"
+# "1" * 3
 # 10 %% 0
 5/0
 0/0
 (-2) ^ (1/2)
 1e+308 * 10
-1e-308 / 10
-(2 + 3i) * (4 - 5i)
 ```
-:::
 
 ## Objects - Function
 
@@ -451,14 +445,26 @@ Try to raise errors using operators.
 #| autorun: false
 #| echo: true
 sqrt(9)
+
+sqrt.valid.name_123 = 9
+sqrt.valid.name_123
 sqrt.valid.name_123 = sqrt(valid.name_123)
 sqrt.valid.name_123
 ```
+:::
+
+## Objects - Function
+
+::: { .callout appearance="simple" }
+- A function is a tool to create or modify an object
+- Format: `function_name(object, parameter1 = ..., parameter2 = ...)`
+- Read the help manual to know more about a function (`help`, `?` or `F1`)
+:::
+
 ```{webr}
 help(sqrt)
 ?sqrt
 ```
-:::
 
 ::: {.fragment}
 ::: {.callout-note}
@@ -468,12 +474,11 @@ Some functions are in the default installation of R. Other functions come from p
 
 # Vectors
 
-## Vectors {auto-animate=true}
+## Vectors Creation {auto-animate=true}
 
 ::: { .callout appearance="simple" }
-### vector construction
-- `c()` Concatenate function
-- `1:10` Vector with numbers from 1 to 10
+- `c()` Concatenate function is the most common way to create vectors
+- `1:10` Easy way to create a vector with numbers from 1 to 10
 :::
 
 ```{webr}
@@ -492,19 +497,18 @@ samples = c("sampA", "sampB")
 samples
 ```
 
-## Vectors {auto-animate=true}
+## Vectors Creation {auto-animate=true}
 
 ::: { .callout appearance="simple" }
-### vector construction
-- `c()` Concatenate function
-- `1:10` Vector with numbers from 1 to 10
+- `c()` Concatenate function is the most common way to create vectors
+- `1:10` Easy way to create a vector with numbers from 1 to 10
 :::
 
 ::: { .callout-tip}
-### Extra
-- `seq` Create a sequence of numbers
-- `rep` Repeat elements several times
-- `runif` Simulate random numbers from Uniform distribution. Same for `rnorm`, `rpois`...
+### Extra ways to create vectors
+- `seq()` Create a sequence of numbers
+- `rep()` Repeat elements several times
+- `runif()` Simulate random numbers from Uniform distribution. Same for `rnorm()`, `rpois()`...
 :::
 
 ## Exercise - Create some vectors
@@ -515,27 +519,38 @@ samples
 - Create a `vector` with 7 *character* values
 :::
 
-## Vectors
+```{webr}
+
+```
+
+## Vectors Exploration
 
 ::: { .callout appearance="simple" }
-### Manipulation
-
 Using index/position between []
 :::
 
-::: { .callout appearance="simple" }
-### Characterization
-
-- `length()` Number of elements in the vector
-- `names()` Get or set the names of the vector's value
-:::
 ```{webr}
 #| autorun: false
 #| echo: true
+luckyNumbers = c(4,8,15,16,23,42)
+luckyNumbers
+
 luckyNumbers[3]
 luckyNumbers[2:4]
 luckyNumbers[2:4] = c(14,3,9)
 luckyNumbers
+```
+
+## Vectors Characterics
+
+::: { .callout appearance="simple" }
+- `length()` Number of elements in the vector
+- `names()` Get or set the names of the vector's value. No value by default.
+:::
+```{webr}
+#| autorun: false
+#| echo: true
+luckyNumbers = c(4,8,15,16,23,42)
 
 length(luckyNumbers)
 
@@ -545,11 +560,9 @@ names(luckyNumbers)
 luckyNumbers["philip"]
 ```
 
-## Vectors
+## Vectors Manipulation
 
 ::: { .callout appearance="simple" }
-### Manipulation
-
 - `sort()` Sort a vector
 - `sample()` Shuffle a vector
 - `rev()` Reverse a vector
@@ -558,6 +571,7 @@ luckyNumbers["philip"]
 ```{webr}
 #| autorun: false
 #| echo: true
+luckyNumbers = c(4,8,15,16,23,42)
 luckyNumbers
 sort(luckyNumbers)
 sort(c(luckyNumbers, 1:10))
@@ -568,15 +582,13 @@ sample(1:10)
 ::: { .callout-tip }
 ### Extra
 
-- `sort()/sample()` Explore extra parameters
-- `order()`  Get the index of the sorted elements
+- `log/log2/log10` Logarithm functions
+- `sqrt`  Square-root function
 :::
 
-## Vectors
+## Vectors Summary
 
 ::: { .callout appearance="simple" }
-### Exploration
-
 - `head()/tail()` Print the first/last values
 - `summary()` Summary statistics
 - `min()/max()/mean()/median()/var()` Minimum, maximum, average, median, variance
@@ -586,24 +598,16 @@ sample(1:10)
 ```{webr}
 #| autorun: false
 #| echo: true
-head(samples)
+luckyNumbers = c(4,8,15,16,23,42)
+head(luckyNumbers, 1)
 summary(luckyNumbers)
 mean(luckyNumbers)
 min(luckyNumbers)
 ```
 
-::: { .callout-tip }
-### Extra
-
-- `log/log2/log10` Logarithm functions
-- `sqrt`  Square-root function
-:::
-
-## Vectors
+## Vectors - Arithmetic operators
 
 ::: { .callout appearance="simple" }
-### Arithmetic operators
-
 - Simple arithmetic operations over all the values of the vector
 - Or values by values when using vectors of same length
 - Arithmetic operations: +, -, *, /
@@ -631,7 +635,6 @@ luckyNumbers / 1:length(luckyNumbers)
 3. Add 100 to all the values
 4. Compute summary statistics (minimum/maximum, median, mean)
 5. Compute the standard deviation of the new values
-5. Plot the histogram the new values with the `hist` function
 
 :::
 
@@ -646,44 +649,8 @@ my_new_numbers = 10 * my_new_numbers
 my_new_numbers = 100 + my_new_numbers
 summary(my_new_numbers)
 sd(my_new_numbers)
-hist(my_new_numbers)
 ```
 :::
-
-## Reminder of last session
-
-::: { .callout appearance="simple" }
-### Objects
-- There are three basic types of objects: `numeric`, `character` and `boolean`
-- Basic objects can be combined into more complex objects, such as `vector`s, `list`s, `matrice`s and `data.frame`s
-- Objects need to be 'stored' in variables so they can be easily retrieved and modified
-- Basic and complex numeric objects can handle arithmetic operations
-- Functions can be applied to basic and/or complex objects depending on the type of data they are designed to process
-:::
-
-```{webr}
-#| autorun: false
-#| echo: true
-1.25 
-```
-
-## Reminder of last session
-::: { .callout appearance="simple" }
-### Vectors
-
-- A `vector` is a sequence of elements that are all of the same type
-- There are multiple ways to create it
-- `[]` are used to manipulate elements of a vector
-- Numeric vectors support arithmetic operations
-- Elements in a vector can be named
-- Various functions can be used with vectors to modify or summarize them
-:::
-
-```{webr}
-#| autorun: false
-#| echo: true
-c(1,7,2,6,3,46,98,65)
-```
 
 # Matrix
 
@@ -721,6 +688,29 @@ vectors2matrix
 
 ::: { .callout appearance="simple" }
 `mat[i,j]`: To select element at row *i* and column *j*. *i* and *j* can be vectors to select multiple elements.
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+neo = matrix(1:12,nrow=3)
+neo
+
+neo[1,1] # print cell in intersection of row 1 and column 1
+neo[1,] # print the row 1
+neo[,1] # print the column 1
+neo[1:2,1:3] # print cells from row 1 to 2 and from row 1 to 3
+
+neo[1:2,1:3] = matrix(rep(1,6),nrow=2) # replace part of the matrix with another matrix
+neo
+```
+:::
+
+## Matrix - Manipulation
+
+::: { .callout appearance="simple" }
+`mat[i,j]`: To select element at row *i* and column *j*. *i* and *j* can be vectors to select multiple elements.
 
 `t()`: To transpose the matrix
 
@@ -731,19 +721,13 @@ vectors2matrix
 ```{webr}
 #| autorun: false
 #| echo: true
+neo = matrix(1:12,nrow=3)
 neo
 
-neo[1,1]
-neo[1,]
-neo[,1]
-neo[1:2,1:3]
-
-neo[1:2,1:3] = matrix(rep(1,6),nrow=2)
-neo
 t(neo)
 
-rbind(neo)
-cbind(neo)
+rbind(neo, neo)
+cbind(neo, neo)
 ```
 :::
 
@@ -753,7 +737,7 @@ cbind(neo)
 ### Instructions
 
 1. Create a matrix with 10 rows and 4 column with numbers from 1 to 40
-2. Change the element in row 6, column 1 into value 666
+2. Change the element in row 6, column 2 into value 42
 3. Fill the 3rd row with ones
 4. Remove the last column
 :::
@@ -765,7 +749,7 @@ cbind(neo)
 exo_mtx = matrix(1:40,10,4)
 exo_mtx
 
-exo_mtx[6,1] = 666
+exo_mtx[6,2] = 42
 exo_mtx
 
 exo_mtx[3,] = rep(1,4)
@@ -787,9 +771,11 @@ exo_mtx
 ```{webr}
 #| autorun: false
 #| echo: true
+neo = matrix(1:12,nrow=3)
 neo
 dim(neo)
 
+colnames(neo)
 colnames(neo) = c("gene1", "gene2", "gene3", "gene4")
 rownames(neo) = paste0(rep("sample", 3), 1:3)
 neo
@@ -811,6 +797,7 @@ Arithmetic operations: `+`, `-`, `*`, `/`
 ```{webr}
 #| autorun: false
 #| echo: true
+neo = matrix(1:12,nrow=3)
 head(neo)
 mean(neo)
 summary(neo)
@@ -860,8 +847,6 @@ summary(exo_mtx)
 ## Matrix - `apply()` function
 
 ::: { .callout appearance="simple" }
-### Your new best friend
-
 - Apply a function to each row (or column) of a matrix
 - No manual iteration, the loop is implicit
 - Second parameter: `1` means row and `2` means columns
@@ -871,6 +856,7 @@ summary(exo_mtx)
 ```{webr}
 #| autorun: false
 #| echo: true
+exo_mtx = matrix(runif(400),100,4)
 apply(exo_mtx, 2, mean)
 ```
 :::
@@ -913,23 +899,76 @@ Some functions are wrappers of `apply()`:
 ```{webr}
 #| autorun: false
 #| echo: true
+exo_mtx = matrix(runif(1000),100,100)
 apply(exo_mtx, 1, mean)
+rowMeans(exo_mtx)
 ```
 :::
 
+## Reminder of last session
+
+::: { .callout appearance="simple" }
+### Objects
+- There are three basic types of objects: `numeric`, `character` and `boolean`
+- Basic objects can be combined into more complex objects, such as `vector`s, `list`s, `matrice`s and `data.frame`s
+- Objects need to be 'stored' in variables so they can be easily retrieved and modified
+- Basic and complex numeric objects can handle arithmetic operations
+- Functions can be applied to basic and/or complex objects depending on the type of data they are designed to process
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+1.25 
+```
+
+## Reminder of last session
+::: { .callout appearance="simple" }
+### Vectors
+
+- A `vector` is a sequence of elements that are all of the same type
+- There are multiple ways to create it
+- `[]` are used to manipulate elements of a vector
+- Numeric vectors support arithmetic operations
+- Elements in a vector can be named
+- Various functions can be used with vectors to modify or summarize them
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+c(1,7,2,6,3,46,98,65)
+```
+
+## Reminder of last session
+::: { .callout appearance="simple" }
+### Matrix
+
+- A `matrix` is a table containing elements of one data type
+- `matrix()`: function to create a matrix
+- `[i,j]`: used to manipulate and replace elements
+- `rownames()`, `colnames()`: get/set the row or column names
+- Numeric tables support arithmetic operations
+- `apply()`: run a function on each row or column
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+exo_mtx = matrix(runif(1000),100,100)
+dim(exo_mtx)
+exo_mtx[1:5,1:5]
+```
+
 # Data Frames
 
-## Data frames - Creation and manipulations
+## Data frames - Creation
 ::: { .callout appearance="simple" }
 A data frame is like a matrix but it can be composed of different data types.
 
-`data.frame()` To create a data frame
+- `data.frame()` To create a data frame
 
-`as.data.frame()` To transform a matrix into a data frame
-
-`[]` or `$name` To select elements of a data.frame
-
-`t()` To transpose a matrix
+- `as.data.frame()` To transform a matrix into a data frame
 :::
 
 ::: {.fragment}
@@ -940,24 +979,38 @@ genes_data <- data.frame(
   name = paste(rep("gene", 1000), 1:1000, sep = "_"),
   sample2 = runif(1000)*10,
   sample1 = runif(1000)*10,
-  sample3 = runif(1000)*10,
-  sample4 = runif(1000)*10,
+  has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
+)
+
+neo = matrix(1:12,nrow=3)
+neo
+```
+:::
+
+## Data frames - Manipulation
+::: { .callout appearance="simple" }
+- `[]` or `$name` To select elements of a data.frame
+- `t()` To transpose
+- `head()/tail()` To show parts of a data frame
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+genes_data <- data.frame(
+  name = paste(rep("gene", 1000), 1:1000, sep = "_"),
+  sample2 = runif(1000)*10,
+  sample1 = runif(1000)*10,
   has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
 )
 
 head(genes_data)
-
-as.data.frame(neo)
-
 head(genes_data$sample1)
-
 genes_data["gene_1", "sample_1"]
-
-head(genes_data[, c(1,3)])
-
+head(genes_data[, 1:3])
 head(t(genes_data))
-
-genes_data$sample5 = runif(1000)*10
+genes_data$sample2 = runif(1000)*10
 ```
 :::
 
@@ -976,9 +1029,6 @@ genes_data2 <- data.frame(
   name = paste(rep("gene", 1000), 1001:2000, sep = "_"),
   sample2 = runif(1000)*10,
   sample1 = runif(1000)*10,
-  sample3 = runif(1000)*10,
-  sample4 = runif(1000)*10,
-  sample5 = runif(1000)*10,
   has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
 )
 dim(genes_data2)
@@ -994,9 +1044,9 @@ cbind(genes_data, genes_data2)
 ::: { .callout appearance="simple" }
 ### Instructions
 
-1. Create a data frame with a character column, two numeric columns and 100 rows
+1. Create a data frame of 100 rows with a character column and two numeric columns
 2. Display the first few rows of this data frame
-3. Calculate the average of the 3rd column
+3. Calculate the mean of the two numeric columns
 4. Add a new column containing boolean values
 :::
 
@@ -1011,9 +1061,10 @@ df = data.frame(
 )
 
 head(df)
-
+avarage_age = mean(df$Age)
+avarage_age
 average_score = mean(df$Score)
-print(average_score)
+average_score
 
 df$Passed = sample(c(TRUE, FALSE), size = 100, replace = TRUE)
 ```
@@ -1021,7 +1072,8 @@ df$Passed = sample(c(TRUE, FALSE), size = 100, replace = TRUE)
 
 ## Data frames - Calculation
 ::: { .callout appearance="simple" }
-You can use arithmetic operations (`+-*/`) and functions (`apply()` and others) as with a matrix.
+You can use arithmetic operations (`+-*/`) only on numeric columns. 
+Functions like `apply()` can be used as with a matrix.
 :::
 
 ::: {.fragment}
@@ -1039,8 +1091,8 @@ colMeans(genes_data[c(1:10,25,42),3:5])
 ::: { .callout appearance="simple" }
 ### Instructions
 
-1. Create a data frame with 2000 random gene names, random gene annotation (mRNA, lncRNA, rRNA, etc...), and 6 columns with random expression
-2. Multiply each expression column by 100
+1. Create a data frame with 2000 random gene names, and 3 columns with random numerics between 0 and 1
+2. Multiply numeric column 1 by 100, numeric column 1 by 200 and numeric column 3 by 300
 3. Find the column with the highest average expression
 4. Find the gene with the lowest median expression
 5. Order the data frame based on the sum expression of genes from the max to the min
@@ -1052,22 +1104,20 @@ colMeans(genes_data[c(1:10,25,42),3:5])
 #| echo: true
 genes_data <- data.frame(
   name = paste(rep("gene", 2000), 1:2000, sep = "_"),
-  annotation = sample(c("mRNA", "lncRNA", "tRNA", "rRNA", "snoRNA", "pseudogene"), 2000, replace = TRUE),
-  sample2 = runif(2000),
   sample1 = runif(2000),
-  sample3 = runif(2000),
-  sample4 = runif(2000),
-  sample5 = runif(2000),
-  sample6 = runif(2000)
+  sample2 = runif(2000),
+  sample3 = runif(2000)
 )
 
-genes_data[,3:8] = genes_data[,3:8]*100
+genes_data[,"sample1"] = genes_data[,"sample1"]*100
+genes_data[,3] = genes_data[,3]*200
+genes_data[,4] = genes_data[,4]*300
 
-colnames(genes_data)[3:8][which.max(colMeans(genes_data[,3:8]))]
+colnames(genes_data)[2:4][which.max(colMeans(genes_data[,2:4]))]
 
-rownames(genes_data)[which.min(apply(genes_data[,3:8], 1, median))]
+rownames(genes_data)[which.min(apply(genes_data[,2:4], 1, median))]
 
-genes_data[order(-rowSums[genes_data[,3:8]]),]
+genes_data[order(-rowSums[genes_data[,2:4]]),]
 ```
 :::
 
@@ -1220,46 +1270,6 @@ dev.off()
 ```
 :::
 
-## Reminder of last session
-::: { .callout appearance="simple" }
-### "Table" objects
-
-- A `matrix` is a table containing elements of one data type
-- A `data.frame` is a table with columns of different data types
-- `matrix()`, `data.frame()`: functions to create a matrix or a data frame
-- `[i,j]`: used to manipulate and replace elements
-- `rownames()`, `colnames()`: get/set the row or column names
-- Numeric columns support arithmetic operations
-- `apply()`: run a function on each row or column
-:::
-
-```{webr}
-#| autorun: false
-#| echo: true
-exo_mtx = matrix(runif(1000),100,100)
-dim(exo_mtx)
-exo_mtx[1:5,1:5]
-```
-
-## Reminder of last session
-::: { .callout appearance="simple" }
-### Read and write files in R
-
-- Set your working directory, eg. the folder where you are working (Session > Set Working Directory)
-- `read.table()`: Basic function to read a table
-- `write.table()`: Basic function to write a table
-- `pdf()/png()/jpeg() ... dev.off()`: Save a plot in PDF/PNG/JPEG format automatically
-- You can save R objects/environments (`saveRDS()`, `save()`, `save.image()`)
-- You can load R objects/environments (`readRDS()`, `load()`)
-:::
-
-```{webr}
-#| autorun: false
-#| echo: true
-mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
-mat.ge[1:5,1:5]
-```
-
 # Basic plotting
 
 ## Basic plotting - Functions
@@ -1405,12 +1415,11 @@ abline(a = 5, b = 4, lty = 2, col = "red")
 ::: { .callout appearance="simple" }
 ### Instructions
 
-Generate plots for:
+Generate plots using the dataForBasicPlots.tsv file and save them:
 
 1. a boxplot of columns 1 to 10.
 2. the distribution of the median gene expression. Add a vertical dotted line to mark the average of the median gene expression.
-3. the distribution of the median sample expression. If any visual outlier, remove it and check the distribution again.
-4. the expression of gene 333 againt gene 666. Surimpose in red triangles the expression of gene 333 against gene 667.
+3. the expression of gene 333 againt gene 666. Surimpose in red triangles the expression of gene 333 against gene 667.
 :::
 
 ::: {.fragment}
@@ -1418,6 +1427,7 @@ Generate plots for:
 #| autorun: false
 #| echo: true
 # Step 1
+mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
 boxplot(mat.ge[,1:10],xlab="sample",ylab="expression",main="Box plot example")
 
 # Step 2
@@ -1429,19 +1439,11 @@ hist(geneMed, breaks = 10,
 abline(v = mean(geneMed), lty = 2)
 
 # Step 3
-sampMed = apply(mat.ge,2,median)
-mat.ge.noOutlier = mat.ge[,-which.min(sampMed)]
-sampMed.noOutlier = apply(mat.ge.noOutlier,2,median)
-hist(sampMed.noOutlier,
-     xlab="gene expression",
-     ylab="number of samples",
-     main="Median gene expression across the samples")
-
-# Step 4
 mat.ge <- as.matrix(mat.ge)
 plot(mat.ge["gene333",],mat.ge["gene666",],xlab="gene333",ylab="gene666",main="Correlated genes")
 par(new = TRUE) 
 plot(mat.ge["gene333",],mat.ge["gene667",],type="p",col=2,pch=2, axes = FALSE, xlab = "", ylab = "")
+axis(side=4, at = pretty(range(mat.ge["gene667",])), col="red",col.axis="red")
 ```
 :::
 
