@@ -416,28 +416,22 @@ my_new_number = my_new_number - my_number
 my_new_number
 ```
 
-## Objects - Arithmetic operators
+## Objects - Arithmetic operators and errors
 
 ::: { .callout appearance="simple" }
-### Exercise
-
-Try to raise errors using operators.
+Some operations raise errors and others quietly return unexpected results.
 :::
 
-::: { .fragment }
 ```{webr}
 #| autorun: false
 #| echo: true
-# "Six" * "Three"
+# "1" * 3
 # 10 %% 0
 5/0
 0/0
 (-2) ^ (1/2)
 1e+308 * 10
-1e-308 / 10
-(2 + 3i) * (4 - 5i)
 ```
-:::
 
 ## Objects - Function
 
@@ -451,14 +445,26 @@ Try to raise errors using operators.
 #| autorun: false
 #| echo: true
 sqrt(9)
+
+sqrt.valid.name_123 = 9
+sqrt.valid.name_123
 sqrt.valid.name_123 = sqrt(valid.name_123)
 sqrt.valid.name_123
 ```
+:::
+
+## Objects - Function
+
+::: { .callout appearance="simple" }
+- A function is a tool to create or modify an object
+- Format: `function_name(object, parameter1 = ..., parameter2 = ...)`
+- Read the help manual to know more about a function (`help`, `?` or `F1`)
+:::
+
 ```{webr}
 help(sqrt)
 ?sqrt
 ```
-:::
 
 ::: {.fragment}
 ::: {.callout-note}
@@ -468,12 +474,11 @@ Some functions are in the default installation of R. Other functions come from p
 
 # Vectors
 
-## Vectors {auto-animate=true}
+## Vectors Creation {auto-animate=true}
 
 ::: { .callout appearance="simple" }
-### vector construction
-- `c()` Concatenate function
-- `1:10` Vector with numbers from 1 to 10
+- `c()` Concatenate function is the most common way to create vectors
+- `1:10` Easy way to create a vector with numbers from 1 to 10
 :::
 
 ```{webr}
@@ -492,19 +497,18 @@ samples = c("sampA", "sampB")
 samples
 ```
 
-## Vectors {auto-animate=true}
+## Vectors Creation {auto-animate=true}
 
 ::: { .callout appearance="simple" }
-### vector construction
-- `c()` Concatenate function
-- `1:10` Vector with numbers from 1 to 10
+- `c()` Concatenate function is the most common way to create vectors
+- `1:10` Easy way to create a vector with numbers from 1 to 10
 :::
 
 ::: { .callout-tip}
-### Extra
-- `seq` Create a sequence of numbers
-- `rep` Repeat elements several times
-- `runif` Simulate random numbers from Uniform distribution. Same for `rnorm`, `rpois`...
+### Extra ways to create vectors
+- `seq()` Create a sequence of numbers
+- `rep()` Repeat elements several times
+- `runif()` Simulate random numbers from Uniform distribution. Same for `rnorm()`, `rpois()`...
 :::
 
 ## Exercise - Create some vectors
@@ -515,27 +519,38 @@ samples
 - Create a `vector` with 7 *character* values
 :::
 
-## Vectors
+```{webr}
+
+```
+
+## Vectors Exploration
 
 ::: { .callout appearance="simple" }
-### Manipulation
-
 Using index/position between []
 :::
 
-::: { .callout appearance="simple" }
-### Characterization
-
-- `length()` Number of elements in the vector
-- `names()` Get or set the names of the vector's value
-:::
 ```{webr}
 #| autorun: false
 #| echo: true
+luckyNumbers = c(4,8,15,16,23,42)
+luckyNumbers
+
 luckyNumbers[3]
 luckyNumbers[2:4]
 luckyNumbers[2:4] = c(14,3,9)
 luckyNumbers
+```
+
+## Vectors Characterics
+
+::: { .callout appearance="simple" }
+- `length()` Number of elements in the vector
+- `names()` Get or set the names of the vector's value. No value by default.
+:::
+```{webr}
+#| autorun: false
+#| echo: true
+luckyNumbers = c(4,8,15,16,23,42)
 
 length(luckyNumbers)
 
@@ -545,11 +560,9 @@ names(luckyNumbers)
 luckyNumbers["philip"]
 ```
 
-## Vectors
+## Vectors Manipulation
 
 ::: { .callout appearance="simple" }
-### Manipulation
-
 - `sort()` Sort a vector
 - `sample()` Shuffle a vector
 - `rev()` Reverse a vector
@@ -558,6 +571,7 @@ luckyNumbers["philip"]
 ```{webr}
 #| autorun: false
 #| echo: true
+luckyNumbers = c(4,8,15,16,23,42)
 luckyNumbers
 sort(luckyNumbers)
 sort(c(luckyNumbers, 1:10))
@@ -568,15 +582,13 @@ sample(1:10)
 ::: { .callout-tip }
 ### Extra
 
-- `sort()/sample()` Explore extra parameters
-- `order()`  Get the index of the sorted elements
+- `log/log2/log10` Logarithm functions
+- `sqrt`  Square-root function
 :::
 
-## Vectors
+## Vectors Summary
 
 ::: { .callout appearance="simple" }
-### Exploration
-
 - `head()/tail()` Print the first/last values
 - `summary()` Summary statistics
 - `min()/max()/mean()/median()/var()` Minimum, maximum, average, median, variance
@@ -586,24 +598,16 @@ sample(1:10)
 ```{webr}
 #| autorun: false
 #| echo: true
-head(samples)
+luckyNumbers = c(4,8,15,16,23,42)
+head(luckyNumbers, 1)
 summary(luckyNumbers)
 mean(luckyNumbers)
 min(luckyNumbers)
 ```
 
-::: { .callout-tip }
-### Extra
-
-- `log/log2/log10` Logarithm functions
-- `sqrt`  Square-root function
-:::
-
-## Vectors
+## Vectors - Arithmetic operators
 
 ::: { .callout appearance="simple" }
-### Arithmetic operators
-
 - Simple arithmetic operations over all the values of the vector
 - Or values by values when using vectors of same length
 - Arithmetic operations: +, -, *, /
@@ -631,7 +635,6 @@ luckyNumbers / 1:length(luckyNumbers)
 3. Add 100 to all the values
 4. Compute summary statistics (minimum/maximum, median, mean)
 5. Compute the standard deviation of the new values
-5. Plot the histogram the new values with the `hist` function
 
 :::
 
@@ -646,44 +649,8 @@ my_new_numbers = 10 * my_new_numbers
 my_new_numbers = 100 + my_new_numbers
 summary(my_new_numbers)
 sd(my_new_numbers)
-hist(my_new_numbers)
 ```
 :::
-
-## Reminder of last session
-
-::: { .callout appearance="simple" }
-### Objects
-- There are three basic types of objects: `numeric`, `character` and `boolean`
-- Basic objects can be combined into more complex objects, such as `vector`s, `list`s, `matrice`s and `data.frame`s
-- Objects need to be 'stored' in variables so they can be easily retrieved and modified
-- Basic and complex numeric objects can handle arithmetic operations
-- Functions can be applied to basic and/or complex objects depending on the type of data they are designed to process
-:::
-
-```{webr}
-#| autorun: false
-#| echo: true
-1.25 
-```
-
-## Reminder of last session
-::: { .callout appearance="simple" }
-### Vectors
-
-- A `vector` is a sequence of elements that are all of the same type
-- There are multiple ways to create it
-- `[]` are used to manipulate elements of a vector
-- Numeric vectors support arithmetic operations
-- Elements in a vector can be named
-- Various functions can be used with vectors to modify or summarize them
-:::
-
-```{webr}
-#| autorun: false
-#| echo: true
-c(1,7,2,6,3,46,98,65)
-```
 
 # Matrix
 
@@ -916,6 +883,61 @@ Some functions are wrappers of `apply()`:
 apply(exo_mtx, 1, mean)
 ```
 :::
+
+## Reminder of last session
+
+::: { .callout appearance="simple" }
+### Objects
+- There are three basic types of objects: `numeric`, `character` and `boolean`
+- Basic objects can be combined into more complex objects, such as `vector`s, `list`s, `matrice`s and `data.frame`s
+- Objects need to be 'stored' in variables so they can be easily retrieved and modified
+- Basic and complex numeric objects can handle arithmetic operations
+- Functions can be applied to basic and/or complex objects depending on the type of data they are designed to process
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+1.25 
+```
+
+## Reminder of last session
+::: { .callout appearance="simple" }
+### Vectors
+
+- A `vector` is a sequence of elements that are all of the same type
+- There are multiple ways to create it
+- `[]` are used to manipulate elements of a vector
+- Numeric vectors support arithmetic operations
+- Elements in a vector can be named
+- Various functions can be used with vectors to modify or summarize them
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+c(1,7,2,6,3,46,98,65)
+```
+
+## Reminder of last session
+::: { .callout appearance="simple" }
+### Matrix
+
+- A `matrix` is a table containing elements of one data type
+- `matrix()`: function to create a matrix
+- `[i,j]`: used to manipulate and replace elements
+- `rownames()`, `colnames()`: get/set the row or column names
+- Numeric tables support arithmetic operations
+- `apply()`: run a function on each row or column
+:::
+
+```{webr}
+#| autorun: false
+#| echo: true
+exo_mtx = matrix(runif(1000),100,100)
+dim(exo_mtx)
+exo_mtx[1:5,1:5]
+```
 
 # Data Frames
 
