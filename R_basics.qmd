@@ -688,6 +688,29 @@ vectors2matrix
 
 ::: { .callout appearance="simple" }
 `mat[i,j]`: To select element at row *i* and column *j*. *i* and *j* can be vectors to select multiple elements.
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+neo = matrix(1:12,nrow=3)
+neo
+
+neo[1,1] # print cell in intersection of row 1 and column 1
+neo[1,] # print the row 1
+neo[,1] # print the column 1
+neo[1:2,1:3] # print cells from row 1 to 2 and from row 1 to 3
+
+neo[1:2,1:3] = matrix(rep(1,6),nrow=2) # replace part of the matrix with another matrix
+neo
+```
+:::
+
+## Matrix - Manipulation
+
+::: { .callout appearance="simple" }
+`mat[i,j]`: To select element at row *i* and column *j*. *i* and *j* can be vectors to select multiple elements.
 
 `t()`: To transpose the matrix
 
@@ -698,19 +721,13 @@ vectors2matrix
 ```{webr}
 #| autorun: false
 #| echo: true
+neo = matrix(1:12,nrow=3)
 neo
 
-neo[1,1]
-neo[1,]
-neo[,1]
-neo[1:2,1:3]
-
-neo[1:2,1:3] = matrix(rep(1,6),nrow=2)
-neo
 t(neo)
 
-rbind(neo)
-cbind(neo)
+rbind(neo, neo)
+cbind(neo, neo)
 ```
 :::
 
@@ -720,7 +737,7 @@ cbind(neo)
 ### Instructions
 
 1. Create a matrix with 10 rows and 4 column with numbers from 1 to 40
-2. Change the element in row 6, column 1 into value 666
+2. Change the element in row 6, column 2 into value 42
 3. Fill the 3rd row with ones
 4. Remove the last column
 :::
@@ -732,7 +749,7 @@ cbind(neo)
 exo_mtx = matrix(1:40,10,4)
 exo_mtx
 
-exo_mtx[6,1] = 666
+exo_mtx[6,2] = 42
 exo_mtx
 
 exo_mtx[3,] = rep(1,4)
@@ -754,9 +771,11 @@ exo_mtx
 ```{webr}
 #| autorun: false
 #| echo: true
+neo = matrix(1:12,nrow=3)
 neo
 dim(neo)
 
+colnames(neo)
 colnames(neo) = c("gene1", "gene2", "gene3", "gene4")
 rownames(neo) = paste0(rep("sample", 3), 1:3)
 neo
@@ -778,6 +797,7 @@ Arithmetic operations: `+`, `-`, `*`, `/`
 ```{webr}
 #| autorun: false
 #| echo: true
+neo = matrix(1:12,nrow=3)
 head(neo)
 mean(neo)
 summary(neo)
@@ -827,8 +847,6 @@ summary(exo_mtx)
 ## Matrix - `apply()` function
 
 ::: { .callout appearance="simple" }
-### Your new best friend
-
 - Apply a function to each row (or column) of a matrix
 - No manual iteration, the loop is implicit
 - Second parameter: `1` means row and `2` means columns
@@ -838,6 +856,7 @@ summary(exo_mtx)
 ```{webr}
 #| autorun: false
 #| echo: true
+exo_mtx = matrix(runif(400),100,4)
 apply(exo_mtx, 2, mean)
 ```
 :::
@@ -880,7 +899,9 @@ Some functions are wrappers of `apply()`:
 ```{webr}
 #| autorun: false
 #| echo: true
+exo_mtx = matrix(runif(1000),100,100)
 apply(exo_mtx, 1, mean)
+rowMeans(exo_mtx)
 ```
 :::
 
