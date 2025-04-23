@@ -962,17 +962,13 @@ exo_mtx[1:5,1:5]
 
 # Data Frames
 
-## Data frames - Creation and manipulations
+## Data frames - Creation
 ::: { .callout appearance="simple" }
 A data frame is like a matrix but it can be composed of different data types.
 
-`data.frame()` To create a data frame
+- `data.frame()` To create a data frame
 
-`as.data.frame()` To transform a matrix into a data frame
-
-`[]` or `$name` To select elements of a data.frame
-
-`t()` To transpose a matrix
+- `as.data.frame()` To transform a matrix into a data frame
 :::
 
 ::: {.fragment}
@@ -983,24 +979,38 @@ genes_data <- data.frame(
   name = paste(rep("gene", 1000), 1:1000, sep = "_"),
   sample2 = runif(1000)*10,
   sample1 = runif(1000)*10,
-  sample3 = runif(1000)*10,
-  sample4 = runif(1000)*10,
+  has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
+)
+
+neo = matrix(1:12,nrow=3)
+neo
+```
+:::
+
+## Data frames - Manipulation
+::: { .callout appearance="simple" }
+- `[]` or `$name` To select elements of a data.frame
+- `t()` To transpose
+- `head()/tail()` To show parts of a data frame
+:::
+
+::: {.fragment}
+```{webr}
+#| autorun: false
+#| echo: true
+genes_data <- data.frame(
+  name = paste(rep("gene", 1000), 1:1000, sep = "_"),
+  sample2 = runif(1000)*10,
+  sample1 = runif(1000)*10,
   has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
 )
 
 head(genes_data)
-
-as.data.frame(neo)
-
 head(genes_data$sample1)
-
 genes_data["gene_1", "sample_1"]
-
-head(genes_data[, c(1,3)])
-
+head(genes_data[, 1:3])
 head(t(genes_data))
-
-genes_data$sample5 = runif(1000)*10
+genes_data$sample2 = runif(1000)*10
 ```
 :::
 
@@ -1019,9 +1029,6 @@ genes_data2 <- data.frame(
   name = paste(rep("gene", 1000), 1001:2000, sep = "_"),
   sample2 = runif(1000)*10,
   sample1 = runif(1000)*10,
-  sample3 = runif(1000)*10,
-  sample4 = runif(1000)*10,
-  sample5 = runif(1000)*10,
   has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
 )
 dim(genes_data2)
@@ -1037,9 +1044,9 @@ cbind(genes_data, genes_data2)
 ::: { .callout appearance="simple" }
 ### Instructions
 
-1. Create a data frame with a character column, two numeric columns and 100 rows
+1. Create a data frame of 100 rows with a character column and two numeric columns
 2. Display the first few rows of this data frame
-3. Calculate the average of the 3rd column
+3. Calculate the mean of the two numeric columns
 4. Add a new column containing boolean values
 :::
 
@@ -1054,9 +1061,10 @@ df = data.frame(
 )
 
 head(df)
-
+avarage_age = mean(df$Age)
+avarage_age
 average_score = mean(df$Score)
-print(average_score)
+average_score
 
 df$Passed = sample(c(TRUE, FALSE), size = 100, replace = TRUE)
 ```
@@ -1064,7 +1072,8 @@ df$Passed = sample(c(TRUE, FALSE), size = 100, replace = TRUE)
 
 ## Data frames - Calculation
 ::: { .callout appearance="simple" }
-You can use arithmetic operations (`+-*/`) and functions (`apply()` and others) as with a matrix.
+You can use arithmetic operations (`+-*/`) only on numeric columns. 
+Functions like `apply()` can be used as with a matrix.
 :::
 
 ::: {.fragment}
@@ -1082,7 +1091,7 @@ colMeans(genes_data[c(1:10,25,42),3:5])
 ::: { .callout appearance="simple" }
 ### Instructions
 
-1. Create a data frame with 2000 random gene names, random gene annotation (mRNA, lncRNA, rRNA, etc...), and 6 columns with random expression
+1. Create a data frame with 2000 random gene names, and 3 columns with random expression between 0 and 1
 2. Multiply each expression column by 100
 3. Find the column with the highest average expression
 4. Find the gene with the lowest median expression
@@ -1095,22 +1104,18 @@ colMeans(genes_data[c(1:10,25,42),3:5])
 #| echo: true
 genes_data <- data.frame(
   name = paste(rep("gene", 2000), 1:2000, sep = "_"),
-  annotation = sample(c("mRNA", "lncRNA", "tRNA", "rRNA", "snoRNA", "pseudogene"), 2000, replace = TRUE),
-  sample2 = runif(2000),
   sample1 = runif(2000),
-  sample3 = runif(2000),
-  sample4 = runif(2000),
-  sample5 = runif(2000),
-  sample6 = runif(2000)
+  sample2 = runif(2000),
+  sample3 = runif(2000)
 )
 
-genes_data[,3:8] = genes_data[,3:8]*100
+genes_data[,2:4] = genes_data[,2:4]*100
 
-colnames(genes_data)[3:8][which.max(colMeans(genes_data[,3:8]))]
+colnames(genes_data)[2:4][which.max(colMeans(genes_data[,2:4]))]
 
-rownames(genes_data)[which.min(apply(genes_data[,3:8], 1, median))]
+rownames(genes_data)[which.min(apply(genes_data[,2:4], 1, median))]
 
-genes_data[order(-rowSums[genes_data[,3:8]]),]
+genes_data[order(-rowSums[genes_data[,2:4]]),]
 ```
 :::
 
