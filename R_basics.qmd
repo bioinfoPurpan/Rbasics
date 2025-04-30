@@ -976,10 +976,10 @@ A data frame is like a matrix but it can be composed of different data types.
 #| autorun: false
 #| echo: true
 genes_data <- data.frame(
-  name = paste(rep("gene", 1000), 1:1000, sep = "_"),
-  sample2 = runif(1000)*10,
-  sample1 = runif(1000)*10,
-  has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
+  name = c("gene_1", "gene_2", "gene_3", "gene_4"),
+  sample2 = c(1,10,50,3),
+  sample1 = c(20,40,0,3),
+  has_peaks = c(TRUE, FALSE, TRUE, TRUE)
 )
 
 neo = matrix(1:12,nrow=3)
@@ -999,18 +999,19 @@ neo
 #| autorun: false
 #| echo: true
 genes_data <- data.frame(
-  name = paste(rep("gene", 1000), 1:1000, sep = "_"),
-  sample2 = runif(1000)*10,
-  sample1 = runif(1000)*10,
-  has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
+  name = c("gene_1", "gene_2", "gene_3", "gene_4"),
+  sample2 = c(1,10,50,3),
+  sample1 = c(20,40,0,3),
+  has_peaks = c(TRUE, FALSE, TRUE, TRUE)
 )
 
-head(genes_data)
-head(genes_data$sample1)
-genes_data["gene_1", "sample_1"]
-head(genes_data[, 1:3])
-head(t(genes_data))
-genes_data$sample2 = runif(1000)*10
+genes_data
+genes_data["gene_1", "sample1"]
+genes_data[,1:3]
+genes_data$sample1
+
+genes_data$sample1 = c(0,0,0,0)
+genes_data
 ```
 :::
 
@@ -1026,13 +1027,14 @@ genes_data$sample2 = runif(1000)*10
 #| autorun: false
 #| echo: true
 genes_data2 <- data.frame(
-  name = paste(rep("gene", 1000), 1001:2000, sep = "_"),
-  sample2 = runif(1000)*10,
-  sample1 = runif(1000)*10,
-  has_peaks = sample(c(TRUE, FALSE), size = 1000, replace = TRUE)
+  name = c("gene_6", "gene_7", "gene_8", "gene_9"),
+  sample2 = c(1,10,50,3)*100,
+  sample1 = c(20,40,0,3)*12,
+  has_peaks = c(FALSE, FALSE, TRUE, TRUE)
 )
-dim(genes_data2)
-head(rownames(genes_data2))
+
+rownames(genes_data2)
+colnames(genes_data2)
 
 rbind(genes_data, genes_data2)
 cbind(genes_data, genes_data2)
@@ -1095,7 +1097,6 @@ colMeans(genes_data[c(1:10,25,42),3:5])
 2. Multiply numeric column 1 by 100, numeric column 1 by 200 and numeric column 3 by 300
 3. Find the column with the highest average expression
 4. Find the gene with the lowest median expression
-5. Order the data frame based on the sum expression of genes from the max to the min
 :::
 
 ::: {.fragment}
@@ -1109,15 +1110,18 @@ genes_data <- data.frame(
   sample3 = runif(2000)
 )
 
+# Step 1
 genes_data[,"sample1"] = genes_data[,"sample1"]*100
 genes_data[,3] = genes_data[,3]*200
 genes_data[,4] = genes_data[,4]*300
 
-colnames(genes_data)[2:4][which.max(colMeans(genes_data[,2:4]))]
+# Step 2
+mean_per_col <- colMeans(genes_data[,2:4])
+samples <- colnames(genes_data[,2:4])
+samples[which.max(mean_per_col)]
 
+# Step 3
 rownames(genes_data)[which.min(apply(genes_data[,2:4], 1, median))]
-
-genes_data[order(-rowSums[genes_data[,2:4]]),]
 ```
 :::
 
@@ -1195,9 +1199,19 @@ Import dataForBasicPlots.tsv into an object called mat.ge
 ```{webr}
 #| autorun: false
 #| echo: true
+
 mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
-nrow(mat.ge) ## number of genes
-ncol(mat.ge) ## number of samples
+
+# Step 1
+nrow(mat.ge) 
+
+# Step 2
+ncol(mat.ge)
+
+# Step 1 & 2
+dim(mat.ge)
+
+# Step 3
 mat.ge[1:5,1:5]
 ```
 :::
@@ -1419,7 +1433,7 @@ Generate plots using the dataForBasicPlots.tsv file and save them:
 
 1. a boxplot of columns 1 to 10.
 2. the distribution of the median gene expression. Add a vertical dotted line to mark the average of the median gene expression.
-3. the expression of gene 333 againt gene 666. Surimpose in red triangles the expression of gene 333 against gene 667.
+3. the expression of gene 333 against gene 666. Surimpose in red triangles the expression of gene 333 against gene 667.
 :::
 
 ::: {.fragment}
@@ -1446,6 +1460,117 @@ plot(mat.ge["gene333",],mat.ge["gene667",],type="p",col=2,pch=2, axes = FALSE, x
 axis(side=4, at = pretty(range(mat.ge["gene667",])), col="red",col.axis="red")
 ```
 :::
+
+## Reminder of last session
+ 
+::: { .callout appearance="simple" }
+ 
+### "Table" objects
+ 
+- A `matrix` is a table containing elements of one data type
+ 
+- A `data.frame` is a table with columns of different data types
+ 
+- `matrix()`, `data.frame()`: functions to create a matrix or a data frame
+ 
+- `[i,j]`: used to manipulate and replace elements
+ 
+- `rownames()`, `colnames()`: get/set the row or column names
+ 
+- Numeric columns support arithmetic operations
+ 
+- `apply()`: run a function on each row or column
+ 
+:::
+ 
+
+ 
+```{webr}
+ 
+#| autorun: false
+ 
+#| echo: true
+ 
+exo_mtx = matrix(runif(1000),100,100)
+ 
+dim(exo_mtx)
+ 
+exo_mtx[1:5,1:5]
+ 
+```
+ 
+
+ 
+## Reminder of last session
+ 
+::: { .callout appearance="simple" }
+ 
+### Read and write files in R
+ 
+- Set your working directory, eg. the folder where you are working (Session > Set Working Directory)
+
+- You can get the path of your file if you copy/paste it on R
+ 
+- `read.table()`: Basic function to read a table
+ 
+- `write.table()`: Basic function to write a table
+ 
+- `pdf()/png()/jpeg() ... dev.off()`: Save a plot in PDF/PNG/JPEG format automatically
+ 
+- You can save R objects/environments (`saveRDS()`, `save()`, `save.image()`)
+ 
+- You can load R objects/environments (`readRDS()`, `load()`)
+ 
+:::
+ 
+
+ 
+```{webr}
+ 
+#| autorun: false
+ 
+#| echo: true
+ 
+mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
+ 
+mat.ge[1:5,1:5]
+ 
+```
+
+## Reminder of last session
+ 
+::: { .callout appearance="simple" }
+ 
+### Plot
+ 
+
+- There are different functions to plot data
+ 
+- `barplot()`
+ 
+- `hist()`
+ 
+- `boxplot()`
+ 
+- `plot()` : Scatter plot with points and/or lines
+ 
+- Some parameters can be used to custom your plot : `main=`, `xlab=`, `xlim=` ...
+ 
+:::
+ 
+
+ 
+```{webr}
+ 
+#| autorun: false
+ 
+#| echo: true
+ 
+mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
+ 
+mat.ge[1:5,1:5]
+ 
+```
 
 # Conditions
 
@@ -1532,17 +1657,33 @@ vector[which(vector>2 & vector<10)]
 ```{webr}
 #| autorun: false
 #| echo: true
+# Step 1
 randVec = sample(0:10, 30, TRUE)
 randVec
+
+# Step 2
 randVec = randVec[which(randVec>=3)]
 randVec
+
+# Step 3
 randVec[which(randVec>8)] = 8
 randVec
 
-## Remove genes with median lower than 1
+# Step 4
+mat.ge = read.table("data/dataForBasicPlots.tsv", as.is=TRUE, sep="\t", header=TRUE)
+
+## Firstly calculate median for each gene
 geneMed = apply(mat.ge,1,median)
+geneMed
+
+## Secondly test this median gene list to detect those > 1
+test_median = geneMed>=1
+test_median
+summary(test_median)
+
+## Finally only select genes with median > 1 in the data.frame
+mat.ge.filter = mat.ge[which(test_median>=1),]
 dim(mat.ge)
-mat.ge.filter = mat.ge[which(geneMed>=1),]
 dim(mat.ge.filter)
 ```
 :::
@@ -1570,14 +1711,16 @@ ifelse(condition, instruction if TRUE, instruction if FALSE)
 #| autorun: false
 #| echo: true
 luckyNumbers = 1:5
-luck = "none"
+luck = ""
+
 if(length(luckyNumbers)>3){
-luck = "a lot"
+  luck = "a lot"
 } else if(length(luckyNumbers)==3){
-luck = "some"
+  luck = "some"
 } else {
-luck = "not enough"
+  luck = "not enough"
 }
+
 luck
 ```
 :::
@@ -1597,8 +1740,10 @@ Write a `if` block that automatically classify the expression of the first gene 
 ```{webr}
 #| autorun: false
 #| echo: true
-classGene1 = "unknown"
-if(median(mat.ge[1,]) > 4){
+gene_exp = mat.ge[1,]
+classGene = "unknown"
+
+if(median(gene_exp) > 4){
   classGene1 = "high"
 } else {
   classGene1 = "low"
@@ -1615,7 +1760,7 @@ classGene1 = ifelse(median(mat.ge[1,]) > 4, "high", "low")
 
 ::: { .callout appearance="simple" }
 - Name of the function with parameters between parenthesis
-- Takes input(s) and return something, e.g. `mean(luckyNumbers)`
+- Takes input(s) and returns something, e.g. `mean(luckyNumbers)`
 - Can have mandatory and optional parameters
 :::
 
@@ -1641,6 +1786,10 @@ myFunctionName(1,c(2,4,5))
 ```
 :::
 
+## Functions - Concept
+
+![](images/function_schema.PNG){width=100%}
+
 ## Functions - Example
 
 ::: { .callout appearance="simple" }
@@ -1665,10 +1814,6 @@ vec110
 vec110.cleaned = clean.vec.fun(vec110)
 vec110.cleaned
 ```
-
-## Functions - Concept
-
-![](images/function_schema.PNG){width=100%}
 
 ## Exercise
 
@@ -1706,47 +1851,6 @@ classify(7:10)
 ```
 :::
 
-## Exercise
-
-::: { .callout appearance="simple" }
-### Instructions
-
-- Create a function that returns the average of the minimum and maximum value of a vector
-- Create a function that returns how many values are higher than 3 in a vector
-- Use your functions on all mat.gene data frame to get the minimum and maximum value of each gene and how many genes are higher than 3 in each sample
-
-Test your functions on vectors with random numbers from 0 to 10.
-:::
-
-::: {.fragment}
-```{webr}
-#| autorun: false
-#| echo: true
-aveMinMax <- function(input){
-  return(mean(c(min(input), max(input))))
-}
-
-aveMinMax(1:3)
-
-higher3 <- function(input){
-  return(length(which(input>3)))
-}
-
-## Other way
-higher3 <- function(input){
-  return(sum(input>3))
-}
-
-higher3(1:10)
-higher3(7:10)
-
-geneAveMinMax = apply(mat.ge, 1, aveMinMax)
-head(geneAveMinMax)
-genesHigherThan3 = apply(mat.ge, 2, higher3)
-head(genesHigherThan3)
-```
-:::
-
 ## Final exercise
 
 ::: { .callout appearance="simple" }
@@ -1762,16 +1866,21 @@ head(genesHigherThan3)
 ```{webr}
 #| autorun: false
 #| echo: true
+# Step 1
 load("data/metadata.RData")
 head(groups)
 
+# Step 2
 geDiff <- function(geneExp){
   geCases = geneExp[which(groups=="case")]
   geControls = geneExp[which(groups=="control")]
   return(geCases - geControls)
 }
 
+# Step 3
 mat.ge.diff = apply(mat.ge, 1, geDiff)
+
+# Step 4
 hist(mat.ge.diff)
 ```
 :::
